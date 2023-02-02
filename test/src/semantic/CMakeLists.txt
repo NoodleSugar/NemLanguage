@@ -1,0 +1,8 @@
+add_executable(ComputeIRVisitorTest)
+
+target_sources(ComputeIRVisitorTest PRIVATE ComputeIRVisitorTests.cpp)
+
+set_target_properties(ComputeIRVisitorTest PROPERTIES CXX_STANDARD 17)
+target_link_libraries(ComputeIRVisitorTest ${NEM_SEM})
+
+catch_discover_tests(ComputeIRVisitorTest TEST_PREFIX ComputeIRVisitor)
