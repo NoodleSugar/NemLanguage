@@ -1,0 +1,44 @@
+// Variables
+
+// // Primitive types
+var b : bool;
+var c : char;
+var i : int;
+var f : float;
+var d : double;
+
+// // Custom types
+var t : MyType;
+var t : MyType<void, int, T, AnotherType<T>>;
+
+// // Const
+const ci : int;
+
+// // Pointers
+var     ip   : * int;
+const  cpi   : * int;
+var    pci   : * const int;
+const cpci   : * const int;
+const cpcpci : * const * const int;
+
+// // Arrays
+var    ai : [10] int;
+const cai : [10] int;
+
+// // References
+var   lri : l& int;
+var   rri : r& int;
+const lri : l& int;
+const rri : r& int;
+
+// // Optionals
+var    oi = ? int;
+const coi = ? int;
+
+// Variable definition
+var b : int     = 2;
+var c : char    = 'c';
+var c : [] char = "str";
+
+// Variable assignment
+d = 2 + 3 * 4 - 2 + 1;
