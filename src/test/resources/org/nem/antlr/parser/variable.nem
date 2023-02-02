@@ -1,0 +1,9 @@
+// Var declaration
+var i : int;
+
+// Var definition
+var b : int  = 2;
+
+// Const definition
+const ci : int = i;
+
