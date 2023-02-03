@@ -12,28 +12,28 @@ var t : MyType;
 var t : MyType<void, int, T, AnotherType<T>>;
 
 // // Const
-const ci : int;
+const ci : int = i;
 
 // // Pointers
-var     ip   : * int;
-const  cpi   : * int;
-var    pci   : * const int;
-const cpci   : * const int;
-const cpcpci : * const * const int;
+var       pi : * int;
+const    cpi : * int = i;
+var      pci : * const int;
+const   cpci : * const int = i;
+const cpcpci : * const * const int = cpci;
 
 // // Arrays
 var    ai : [10] int;
-const cai : [10] int;
+const cai : [10] int = { 'c' };
 
 // // References
-var   lri : l& int;
-var   rri : r& int;
-const lri : l& int;
-const rri : r& int;
+var    lri : l& int;
+var    rri : r& int;
+const clri : l& int = lri;
+const crri : r& int = rri;
 
 // // Optionals
-var    oi = ? int;
-const coi = ? int;
+var    oi : ? int;
+const coi : ? int = oi;
 
 // Variable definition
 var b : int     = 2;

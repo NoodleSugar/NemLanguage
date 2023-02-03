@@ -1,0 +1,5 @@
+interface I
+{
+	fn f() void;
+	const fn f() void;
+};

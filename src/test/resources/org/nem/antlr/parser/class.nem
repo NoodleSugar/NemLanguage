@@ -1,0 +1,14 @@
+class C
+{
+public:
+	fn f() void {}
+	fn f() void {} override
+	const fn f() void {}
+	static fn f() void {}
+	virtual fn f() void {}
+	virtual const fn f() void {}
+protected:
+	fn f() void {}
+private:
+	fn f() void {}
+};

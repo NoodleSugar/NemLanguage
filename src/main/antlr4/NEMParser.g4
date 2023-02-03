@@ -1,5 +1,7 @@
 parser grammar NEMParser;
 
+// TODO Classes et interfaces paramétrées
+
 options {
 
 language   = Java;
@@ -67,15 +69,21 @@ ________________________________________________________________|_______________
 // File content //
 //////////////////
 
-file : top_level EOF;
+file : top_level_seq EOF;
+
+top_level_seq
+	: top_level SEMICOLON
+	| top_level SEMICOLON top_level_seq
+	;
 
 top_level
 	:
 	| module_decl
 	| module_import
 	| module_export
+	| EXPORT? interface_def
 	| EXPORT? class_def
-	| EXPORT? fn_decl
+	| EXPORT? struct_def
 	| EXPORT? fn_def
 	;
 
@@ -88,18 +96,49 @@ module_path
 	| IDENTIFIER POINT module_path
 	;
 
-module_import : IMPORT module_path SEMICOLON ;
-
-module_decl	: MODULE module_path SEMICOLON ;
-
+module_decl	  : MODULE module_path ;
+module_import : IMPORT module_path ;
 module_export : EXPORT (module_import | module_decl) ;
 
-///////////
-// Class //
-///////////
+//////////////////
+// Custom types //
+//////////////////
 
-class_def : CLASS
+access_modifier
+	: PUBLIC
+	| PRIVATE
+	| PROTECTED
 	;
+
+interface_content
+	: CONST? fn_decl SEMICOLON
+	;
+
+class_content
+	: STATIC? var_decl   SEMICOLON
+	| STATIC? var_def    SEMICOLON
+	| STATIC? const_decl SEMICOLON
+	| STATIC? const_def  SEMICOLON
+	| CONST? fn_def OVERRIDE?
+	| VIRTUAL CONST? fn_def
+	| STATIC fn_def
+	;
+
+struct_content
+	: var_decl   SEMICOLON
+	| const_decl SEMICOLON
+	;
+
+enum_content : IDENTIFIER ;
+
+
+interface_def : INTERFACE IDENTIFIER OPEN_BRACE interface_content+ CLOSE_BRACE ;
+
+class_def : FINAL? CLASS IDENTIFIER OPEN_BRACE (access_modifier COLON class_content+)+ CLOSE_BRACE ;
+
+struct_def : STRUCT IDENTIFIER OPEN_BRACE struct_content+ CLOSE_BRACE ;
+
+enum_def : ENUM IDENTIFIER OPEN_BRACE enum_content+ CLOSE_BRACE ;
 
 ///////////////
 // Functions //
@@ -120,19 +159,18 @@ arg_seq
 	| expr COMMA arg_seq
 	;
 
-fn_signature :	IDENTIFIER OPEN_PARENTHESIS param_seq CLOSE_PARENTHESIS return_type ;
+fn_signature :	IDENTIFIER OPEN_PARENTHESIS param_seq? CLOSE_PARENTHESIS return_type ;
 
 fn_decl : FN fn_signature ;
+fn_def  : FN fn_signature instr_block ;
 
-fn_def : FN fn_signature instr_block ;
-
-fn_call : OPEN_PARENTHESIS arg_seq CLOSE_PARENTHESIS ;
+op_call : OPEN_PARENTHESIS arg_seq? CLOSE_PARENTHESIS ;
 
 //////////////////
 // Instructions //
 //////////////////
 
-instr_block	: OPEN_BRACE instr_seq CLOSE_BRACE ;
+instr_block	: OPEN_BRACE instr_seq? CLOSE_BRACE ;
 
 instr_seq
 	: instr SEMICOLON
@@ -142,19 +180,23 @@ instr_seq
 instr
 	: var_decl
 	| var_def
+	| const_def
 	| assign
-	| fn_call
+	| lvalue op_call
 	;
 
-var_decl : (VAR | CONST) IDENTIFIER COLON var_type ;
-
+var_decl
+	: VAR IDENTIFIER COLON var_type ;
 var_def
-	: (VAR | CONST) IDENTIFIER EQUAL expr
-	| (VAR | CONST) IDENTIFIER COLON var_type EQUAL expr
+	: VAR IDENTIFIER EQ expr
+	| VAR IDENTIFIER COLON var_type EQ expr
 	;
+
+const_decl : CONST IDENTIFIER COLON var_type ;
+const_def  : CONST IDENTIFIER COLON var_type EQ expr ;
 
 assign
-	: lvalue EQUAL expr
+	: lvalue EQ expr
 	;
 
 /////////////////
@@ -172,35 +214,39 @@ literal
 expr
 	: literal
 	| lvalue
+	| array_init
+	| struct_init
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS
+	| if_statement expr (ELSE expr)?
+
+	| MINUS expr
+	| expr
+		( MODULO
+		| SLASH
+		| STAR ) expr
+    | expr
+        ( PLUS
+        | MINUS ) expr
+
+    | expr
+        ( OPEN_CHEVRON
+        | CLOSE_CHEVRON
+        | OP_LE
+        | OP_GE ) expr
+    | expr
+        ( OP_EQ
+        | OP_NE) expr
+    | expr OP_AND expr
+    | expr OP_OR expr
 	;
 
+array_init : OPEN_BRACE arg_seq? CLOSE_BRACE ;
+struct_init : IDENTIFIER? OPEN_BRACE (struct_member_init_seq)* CLOSE_BRACE ;
 
-arith_expr
-	: L_NUM
-	| OPEN_PARENTHESIS arith_expr CLOSE_PARENTHESIS
-	| MINUS arith_expr
-	| arith_expr SLASH arith_expr
-    | arith_expr STAR arith_expr
-    | arith_expr MINUS arith_expr
-    | arith_expr PLUS arith_expr
-	| if_statement arith_expr (ELSE arith_expr)?
-	;
-
-bool_expr
-	: TRUE
-	| FALSE
-	| OPEN_PARENTHESIS bool_expr CLOSE_PARENTHESIS
-	| arith_expr
-		( OPEN_CHEVRON
-		| CLOSE_CHEVRON
-		| OP_LE
-		| OP_GE ) arith_expr
-	| arith_expr
-		( OP_EQ
-		| OP_NE) arith_expr
-	| bool_expr OP_AND bool_expr
-	| bool_expr OP_OR bool_expr
+struct_member_init : IDENTIFIER EQ expr ;
+struct_member_init_seq
+	: struct_member_init
+	| struct_member_init COMMA struct_member_init_seq
 	;
 
 ////////////////////
@@ -210,7 +256,7 @@ bool_expr
 lvalue
 	: IDENTIFIER
 	| OPEN_PARENTHESIS lvalue CLOSE_PARENTHESIS
-	| lvalue fn_call
+	| lvalue op_call
 	| lvalue OPEN_BRACKET expr CLOSE_BRACKET
 	| lvalue (POINT | ARROW) IDENTIFIER
 	| STAR expr
@@ -221,7 +267,7 @@ lvalue
 // Conditions //
 ////////////////
 
-if_statement: IF OPEN_PARENTHESIS bool_expr CLOSE_PARENTHESIS ;
+if_statement: IF OPEN_PARENTHESIS expr CLOSE_PARENTHESIS ;
 
 ///////////
 // Types //
@@ -241,20 +287,20 @@ var_type_seq
 
 var_type
 	: primitive_type
-	| IDENTIFIER (OPEN_CHEVRON generic_arg_seq CLOSE_CHEVRON)?
-	| OPEN_BRACKET arith_expr? CLOSE_BRACKET var_type
+	| IDENTIFIER (OPEN_CHEVRON type_arg_seq CLOSE_CHEVRON)?
+	| OPEN_BRACKET expr? CLOSE_BRACKET var_type
 	| STAR CONST? var_type
 	| QUESTION var_type
 	| (LREF | RREF) var_type
 	;
 
-generic_arg_seq
-	: generic_arg
-	| generic_arg COMMA generic_arg_seq ;
+return_type	: (IDENTIFIER? EXCLAMATION)? (VOID | var_type)	;
 
-generic_arg
+type_arg_seq
+	: type_arg
+	| type_arg COMMA type_arg_seq ;
+
+type_arg
 	: VOID
 	| var_type
 	;
-
-return_type	: (IDENTIFIER? EXCLAMATION)? (VOID | var_type)	;

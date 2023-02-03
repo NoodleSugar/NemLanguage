@@ -1,9 +1,7 @@
 lexer grammar NEMLexer;
 
 options {
-
-language   = Java;
-
+language = Java;
 }
 
 ////////////////////////
@@ -21,11 +19,11 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 
 HASH  : '#' ;
 
-PLUS  : '+' ;
-MINUS : '-' ;
-STAR  : '*' ;
-SLASH : '/' ;
-EQUAL : '=' ;
+PLUS   : '+' ;
+MINUS  : '-' ;
+STAR   : '*' ;
+SLASH  : '/' ;
+MODULO : '%' ;
 
 OPEN_PARENTHESIS  : '(' ;
 CLOSE_PARENTHESIS : ')' ;
@@ -49,6 +47,8 @@ SEMICOLON   : ';' ;
 // Operators //
 ///////////////
 
+ARROW : '->' ;
+
 // Boolean operators
 
 OP_OR  : '||' ;
@@ -60,6 +60,7 @@ OP_GE  : '>=' ;
 
 // Assignement operators
 
+EQ     : '=' ;
 EQ_ADD : '+=' ;
 EQ_SUB : '-=' ;
 EQ_MUL : '*=' ;
@@ -70,8 +71,6 @@ EQ_DIV : '/=' ;
 INCR : '++' ;
 DECR : '--' ;
 
-ARROW : '->' ;
-
 //////////////
 // Keywords //
 //////////////
@@ -80,9 +79,21 @@ MODULE    : 'module' ;
 IMPORT    : 'import' ;
 EXPORT    : 'export' ;
 NAMESPACE : 'namespace' ;
+
 TYPE      : 'type' ;
+STRUCT    : 'struct' ;
 CLASS     : 'class' ;
-COMPTIME  : 'comptime' ;
+INTERFACE : 'interface' ;
+
+COMPTIME : 'comptime' ;
+STATIC   : 'static' ;
+FINAL    : 'final' ;
+VIRTUAL  : 'virtual' ;
+OVERRIDE : 'override' ;
+
+FN    : 'fn' ;
+VAR   : 'var' ;
+CONST : 'const' ;
 
 // Access modifier
 
@@ -101,10 +112,6 @@ CONTINUE : 'continue' ;
 BREAK    : 'break' ;
 RETURN   : 'return' ;
 
-// Booleans
-TRUE : 'true' ;
-FALSE : 'false' ;
-
 // Primitives types
 VOID   : 'void' ;
 BOOL   : 'bool' ;
@@ -115,16 +122,20 @@ DOUBLE : 'double' ;
 SHORT  : 'short' ;
 LONG   : 'long' ;
 
-FN    : 'fn' ;
-VAR   : 'var' ;
-CONST : 'const' ;
-
 SIGNED   : 'signed' ;
 UNSIGNED : 'unsigned' ;
 
-LREF  : 'l&' ;
-RREF  : 'r&' ;
-FREF  : 'f&' ;
+LREF : 'l&' ;
+RREF : 'r&' ;
+FREF : 'f&' ;
+
+// Booleans
+TRUE  : 'true' ;
+FALSE : 'false' ;
+
+// Special values
+
+NULL : 'null' ;
 
 ///////////////
 // Litterals //
@@ -164,9 +175,3 @@ L_CHAR : '\'' ( '\\'. | ~[\\'] ) '\'' ;
 L_STR : '"' ( '\\'. | ~[\\"] )*? '"' ;
 
 IDENTIFIER : [_a-zA-Z][_a-zA-Z0-9]* ;
-
-/* TODO
- * - conditions et boucles
- * - fonctions
- * - classes
- */

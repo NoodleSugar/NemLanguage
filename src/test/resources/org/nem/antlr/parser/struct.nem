@@ -1,0 +1,5 @@
+struct S
+{
+	var i : int;
+	var c : char;
+};

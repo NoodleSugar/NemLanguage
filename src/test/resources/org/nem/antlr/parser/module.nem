@@ -1,0 +1,7 @@
+import A;
+import A.B;
+
+export import A;
+export import A.B;
+
+module MyModule;
