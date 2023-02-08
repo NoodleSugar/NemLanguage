@@ -9,12 +9,7 @@ tokenVocab = NEMLexer;
 // File content //
 //////////////////
 
-file_content : top_level_seq EOF;
-
-top_level_seq
-	: top_level
-	| top_level top_level_seq
-	;
+file_content : top_level+ EOF;
 
 top_level : fn_def ;
 
@@ -26,10 +21,7 @@ fn_def : FN fn_signature instr_block ;
 
 fn_signature : IDENTIFIER OPEN_PARENTHESIS param_seq? CLOSE_PARENTHESIS return_type ;
 
-param_seq
-	: param
-	| param COMMA param_seq
-	;
+param_seq : param (COMMA param)* ;
 
 param
     : var_type
@@ -49,10 +41,7 @@ arg_seq
 
 instr_block	: OPEN_BRACE instr_seq? CLOSE_BRACE ;
 
-instr_seq
-	: instr SEMICOLON
-	| instr SEMICOLON instr_seq
-	;
+instr_seq : (instr SEMICOLON)+ ;
 
 instr
 	: var_decl

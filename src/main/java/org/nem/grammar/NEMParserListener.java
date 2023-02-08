@@ -8,25 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface NEMParserListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link NEMParser#file}.
+	 * Enter a parse tree produced by {@link NEMParser#file_content}.
 	 * @param ctx the parse tree
 	 */
-	void enterFile(NEMParser.FileContext ctx);
+	void enterFile_content(NEMParser.File_contentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link NEMParser#file}.
+	 * Exit a parse tree produced by {@link NEMParser#file_content}.
 	 * @param ctx the parse tree
 	 */
-	void exitFile(NEMParser.FileContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link NEMParser#top_level_seq}.
-	 * @param ctx the parse tree
-	 */
-	void enterTop_level_seq(NEMParser.Top_level_seqContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link NEMParser#top_level_seq}.
-	 * @param ctx the parse tree
-	 */
-	void exitTop_level_seq(NEMParser.Top_level_seqContext ctx);
+	void exitFile_content(NEMParser.File_contentContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NEMParser#top_level}.
 	 * @param ctx the parse tree
@@ -167,6 +157,26 @@ public interface NEMParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(NEMParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NEMParser#assign_operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssign_operator(NEMParser.Assign_operatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NEMParser#assign_operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssign_operator(NEMParser.Assign_operatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link NEMParser#fn_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFn_call(NEMParser.Fn_callContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link NEMParser#fn_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFn_call(NEMParser.Fn_callContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link NEMParser#expr}.
 	 * @param ctx the parse tree

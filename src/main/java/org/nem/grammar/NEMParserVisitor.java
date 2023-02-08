@@ -11,17 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#file}.
+	 * Visit a parse tree produced by {@link NEMParser#file_content}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFile(NEMParser.FileContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link NEMParser#top_level_seq}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTop_level_seq(NEMParser.Top_level_seqContext ctx);
+	T visitFile_content(NEMParser.File_contentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#top_level}.
 	 * @param ctx the parse tree
@@ -106,6 +100,18 @@ public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssign(NEMParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NEMParser#assign_operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign_operator(NEMParser.Assign_operatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NEMParser#fn_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFn_call(NEMParser.Fn_callContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#expr}.
 	 * @param ctx the parse tree

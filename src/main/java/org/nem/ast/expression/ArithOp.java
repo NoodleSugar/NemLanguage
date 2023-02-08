@@ -1,6 +1,6 @@
 package org.nem.ast.expression;
 
-public enum ArithOperation {
+public enum ArithOp {
 	Addition,
 	Substraction,
 	Multiplication,

@@ -1,8 +1,6 @@
 package org.nem.ast.value;
 
-import org.nem.ast.type.Type;
-
-public class Variable {
+public class Variable implements LValue{
 	public final String name;
 
 	Variable(String name) {

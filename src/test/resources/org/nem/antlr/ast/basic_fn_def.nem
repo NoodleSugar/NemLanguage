@@ -1,0 +1,4 @@
+fn f(p : int)
+{
+	var a : int = 0xff;
+}

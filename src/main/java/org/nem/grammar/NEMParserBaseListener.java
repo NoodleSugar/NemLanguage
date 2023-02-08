@@ -17,25 +17,13 @@ public class NEMParserBaseListener implements NEMParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFile(NEMParser.FileContext ctx) { }
+	@Override public void enterFile_content(NEMParser.File_contentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFile(NEMParser.FileContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTop_level_seq(NEMParser.Top_level_seqContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTop_level_seq(NEMParser.Top_level_seqContext ctx) { }
+	@Override public void exitFile_content(NEMParser.File_contentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -204,6 +192,30 @@ public class NEMParserBaseListener implements NEMParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssign(NEMParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssign_operator(NEMParser.Assign_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssign_operator(NEMParser.Assign_operatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFn_call(NEMParser.Fn_callContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFn_call(NEMParser.Fn_callContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
