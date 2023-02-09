@@ -1,0 +1,7 @@
+fn main() void
+{
+}
+
+fn f(int, p : int, int) int
+{
+}

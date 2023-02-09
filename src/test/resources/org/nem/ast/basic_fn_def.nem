@@ -1,4 +1,4 @@
-fn f(p : int)
+fn f(p : int) void
 {
 	var a : int = 0xff;
 }
