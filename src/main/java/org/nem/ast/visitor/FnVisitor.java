@@ -1,4 +1,4 @@
-package org.nem.visitor;
+package org.nem.ast.visitor;
 
 import org.nem.ast.function.Function;
 import org.nem.ast.function.Parameter;
@@ -13,16 +13,16 @@ import java.util.List;
 
 public class FnVisitor extends NEMParserBaseVisitor<Function> {
 	@Override
-	public Function visitFn_def(NEMParser.Fn_defContext ctx) {
+	public Function visitFnDef(NEMParser.FnDefContext ctx) {
 		final ParamVisitor paramVisitor = new ParamVisitor();
 		final InstrVisitor instrVisitor = new InstrVisitor();
 
-		final String name = ctx.fn_signature().IDENTIFIER().getText();
-		final Type returnType = TypeFactory.get(ctx.fn_signature().return_type().getText());
+		final String name = ctx.fnSignature().IDENTIFIER().getText();
+		final Type returnType = TypeFactory.get(ctx.fnSignature().returnType().getText());
 
-		final NEMParser.Param_seqContext paramSeqCtx = ctx
-			.fn_signature()
-			.param_seq();
+		final NEMParser.ParamSeqContext paramSeqCtx = ctx
+			.fnSignature()
+			.paramSeq();
 
 		final List<Parameter> parameterList =
 			(paramSeqCtx == null)
@@ -33,14 +33,8 @@ public class FnVisitor extends NEMParserBaseVisitor<Function> {
 				.map(param -> param.accept(paramVisitor))
 				.toList();
 
-		final NEMParser.Instr_seqContext instrSeqCtx = ctx
-			.instr_block()
-			.instr_seq();
-
-		final List<Instruction> instructionList =
-			(instrSeqCtx == null)
-				? new ArrayList<>()
-				: instrSeqCtx
+		final List<Instruction> instructionList = ctx
+				.instrBlock()
 				.instr()
 				.stream()
 				.map(param -> param.accept(instrVisitor))

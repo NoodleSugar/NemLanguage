@@ -1,11 +1,11 @@
 package org.nem.ast.expression;
 
-public class ArithExpr implements Expression {
+public class ExprArith implements Expression {
 	public final ArithOp operation;
 	public final Expression left;
 	public final Expression right;
 
-	public ArithExpr(
+	public ExprArith(
 			ArithOp operation,
 			Expression left,
 			Expression right) {

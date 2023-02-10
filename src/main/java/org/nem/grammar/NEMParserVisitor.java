@@ -11,65 +11,67 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#file_content}.
+	 * Visit a parse tree produced by {@link NEMParser#fileContent}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFile_content(NEMParser.File_contentContext ctx);
+	T visitFileContent(NEMParser.FileContentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#top_level}.
+	 * Visit a parse tree produced by {@link NEMParser#topLevel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTop_level(NEMParser.Top_levelContext ctx);
+	T visitTopLevel(NEMParser.TopLevelContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#fn_def}.
+	 * Visit a parse tree produced by {@link NEMParser#fnDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFn_def(NEMParser.Fn_defContext ctx);
+	T visitFnDef(NEMParser.FnDefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#fn_signature}.
+	 * Visit a parse tree produced by {@link NEMParser#fnSignature}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFn_signature(NEMParser.Fn_signatureContext ctx);
+	T visitFnSignature(NEMParser.FnSignatureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#param_seq}.
+	 * Visit a parse tree produced by {@link NEMParser#paramSeq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParam_seq(NEMParser.Param_seqContext ctx);
+	T visitParamSeq(NEMParser.ParamSeqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#param}.
+	 * Visit a parse tree produced by the {@code ParamWithoutName}
+	 * labeled alternative in {@link NEMParser#param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParam(NEMParser.ParamContext ctx);
+	T visitParamWithoutName(NEMParser.ParamWithoutNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#op_call}.
+	 * Visit a parse tree produced by the {@code ParamWithName}
+	 * labeled alternative in {@link NEMParser#param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOp_call(NEMParser.Op_callContext ctx);
+	T visitParamWithName(NEMParser.ParamWithNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#arg_seq}.
+	 * Visit a parse tree produced by {@link NEMParser#callOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArg_seq(NEMParser.Arg_seqContext ctx);
+	T visitCallOp(NEMParser.CallOpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#instr_block}.
+	 * Visit a parse tree produced by {@link NEMParser#argSeq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInstr_block(NEMParser.Instr_blockContext ctx);
+	T visitArgSeq(NEMParser.ArgSeqContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#instr_seq}.
+	 * Visit a parse tree produced by {@link NEMParser#instrBlock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInstr_seq(NEMParser.Instr_seqContext ctx);
+	T visitInstrBlock(NEMParser.InstrBlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#instr}.
 	 * @param ctx the parse tree
@@ -77,23 +79,67 @@ public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInstr(NEMParser.InstrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#var_decl}.
+	 * Visit a parse tree produced by the {@code InstrPreIncr}
+	 * labeled alternative in {@link NEMParser#incrInstr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVar_decl(NEMParser.Var_declContext ctx);
+	T visitInstrPreIncr(NEMParser.InstrPreIncrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#var_def}.
+	 * Visit a parse tree produced by the {@code InstrPreDecr}
+	 * labeled alternative in {@link NEMParser#incrInstr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVar_def(NEMParser.Var_defContext ctx);
+	T visitInstrPreDecr(NEMParser.InstrPreDecrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#const_def}.
+	 * Visit a parse tree produced by the {@code InstrPostIncr}
+	 * labeled alternative in {@link NEMParser#incrInstr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConst_def(NEMParser.Const_defContext ctx);
+	T visitInstrPostIncr(NEMParser.InstrPostIncrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InstrPostDecr}
+	 * labeled alternative in {@link NEMParser#incrInstr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrPostDecr(NEMParser.InstrPostDecrContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NEMParser#varDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDecl(NEMParser.VarDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarDefWithoutType}
+	 * labeled alternative in {@link NEMParser#varDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDefWithoutType(NEMParser.VarDefWithoutTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarDefWithType}
+	 * labeled alternative in {@link NEMParser#varDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDefWithType(NEMParser.VarDefWithTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstDefWithoutType}
+	 * labeled alternative in {@link NEMParser#constDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstDefWithoutType(NEMParser.ConstDefWithoutTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ConstDefWithType}
+	 * labeled alternative in {@link NEMParser#constDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstDefWithType(NEMParser.ConstDefWithTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#assign}.
 	 * @param ctx the parse tree
@@ -101,23 +147,101 @@ public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(NEMParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#assign_operator}.
+	 * Visit a parse tree produced by {@link NEMParser#assignOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssign_operator(NEMParser.Assign_operatorContext ctx);
+	T visitAssignOp(NEMParser.AssignOpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#fn_call}.
+	 * Visit a parse tree produced by {@link NEMParser#fnCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFn_call(NEMParser.Fn_callContext ctx);
+	T visitFnCall(NEMParser.FnCallContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#expr}.
+	 * Visit a parse tree produced by the {@code ExprFnCall}
+	 * labeled alternative in {@link NEMParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpr(NEMParser.ExprContext ctx);
+	T visitExprFnCall(NEMParser.ExprFnCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprlValue}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprlValue(NEMParser.ExprlValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMinus}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMinus(NEMParser.ExprMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprDecr}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprDecr(NEMParser.ExprDecrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprSub}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprSub(NEMParser.ExprSubContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprLiteral}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprLiteral(NEMParser.ExprLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprParenthesis}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprParenthesis(NEMParser.ExprParenthesisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprIncr}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprIncr(NEMParser.ExprIncrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMul}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMul(NEMParser.ExprMulContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprDiv}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprDiv(NEMParser.ExprDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprAdd}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprAdd(NEMParser.ExprAddContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprMod}
+	 * labeled alternative in {@link NEMParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprMod(NEMParser.ExprModContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#literal}.
 	 * @param ctx the parse tree
@@ -125,27 +249,52 @@ public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteral(NEMParser.LiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#lvalue}.
+	 * Visit a parse tree produced by the {@code LValueId}
+	 * labeled alternative in {@link NEMParser#lValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLvalue(NEMParser.LvalueContext ctx);
+	T visitLValueId(NEMParser.LValueIdContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#var_type}.
+	 * Visit a parse tree produced by the {@code LValueIncr}
+	 * labeled alternative in {@link NEMParser#lValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVar_type(NEMParser.Var_typeContext ctx);
+	T visitLValueIncr(NEMParser.LValueIncrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#primitive_type}.
+	 * Visit a parse tree produced by the {@code LValueDecr}
+	 * labeled alternative in {@link NEMParser#lValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimitive_type(NEMParser.Primitive_typeContext ctx);
+	T visitLValueDecr(NEMParser.LValueDecrContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link NEMParser#return_type}.
+	 * Visit a parse tree produced by the {@code LValueParenthesis}
+	 * labeled alternative in {@link NEMParser#lValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturn_type(NEMParser.Return_typeContext ctx);
+	T visitLValueParenthesis(NEMParser.LValueParenthesisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Integer}
+	 * labeled alternative in {@link NEMParser#varType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInteger(NEMParser.IntegerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WithoutReturnType}
+	 * labeled alternative in {@link NEMParser#returnType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithoutReturnType(NEMParser.WithoutReturnTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WithReturnType}
+	 * labeled alternative in {@link NEMParser#returnType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWithReturnType(NEMParser.WithReturnTypeContext ctx);
 }

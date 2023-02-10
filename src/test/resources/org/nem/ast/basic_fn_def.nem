@@ -1,4 +1,9 @@
 fn f(p : int) void
 {
-	var a : int = 0xff;
+	const a = 2;
+	const b : int = 0b11;
+	var c : int;
+	var d = 0o77;
+	var e : int = 0xff;
+	a += b;
 }

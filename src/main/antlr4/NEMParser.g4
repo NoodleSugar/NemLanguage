@@ -9,89 +9,95 @@ tokenVocab = NEMLexer;
 // File content //
 //////////////////
 
-file_content : top_level+ EOF;
+fileContent : topLevel+ EOF;
 
-top_level : fn_def ;
+topLevel : fnDef ;
 
 ///////////////
 // Functions //
 ///////////////
 
-fn_def : FN fn_signature instr_block ;
+fnDef : FN fnSignature instrBlock ;
 
-fn_signature : IDENTIFIER OPEN_PARENTHESIS param_seq? CLOSE_PARENTHESIS return_type ;
+fnSignature : IDENTIFIER OPEN_PARENTHESIS paramSeq? CLOSE_PARENTHESIS returnType ;
 
-param_seq : param (COMMA param)* ;
+paramSeq : param (COMMA param)* ;
 
 param
-    : var_type
-    | IDENTIFIER COLON var_type
+    : varType                  #ParamWithoutName
+    | IDENTIFIER COLON varType #ParamWithName
     ;
 
-op_call : OPEN_PARENTHESIS arg_seq? CLOSE_PARENTHESIS ;
+callOp : OPEN_PARENTHESIS argSeq? CLOSE_PARENTHESIS ;
 
-arg_seq
-	: expr
-	| expr COMMA arg_seq
-	;
+argSeq : expr (COMMA expr)* ;
 
 //////////////////
 // Instructions //
 //////////////////
 
-instr_block	: OPEN_BRACE instr_seq? CLOSE_BRACE ;
-
-instr_seq : (instr SEMICOLON)+ ;
+instrBlock : OPEN_BRACE (instr SEMICOLON)* CLOSE_BRACE ;
 
 instr
-	: var_decl
-	| var_def
-	| const_def
+	: varDecl
+	| varDef
+	| constDef
 	| assign
-	| fn_call
+	| fnCall
+	| incrInstr
 	;
 
-var_decl
-	: VAR IDENTIFIER COLON var_type ;
-
-var_def
-	: VAR IDENTIFIER EQ expr
-	| VAR IDENTIFIER COLON var_type EQ expr
+incrInstr
+	: INCR lValue # InstrPreIncr
+	| DECR lValue # InstrPreDecr
+	| lValue INCR # InstrPostIncr
+	| lValue DECR # InstrPostDecr
 	;
 
-const_def : CONST IDENTIFIER COLON var_type EQ expr ;
+varDecl
+	: VAR IDENTIFIER COLON varType ;
 
-assign : lvalue assign_operator expr ;
-
-assign_operator
-	: EQ
-	| EQ_ADD
-	| EQ_SUB
-	| EQ_MUL
-	| EQ_DIV
-	| EQ_MOD
+varDef
+	: VAR IDENTIFIER EQ expr               #VarDefWithoutType
+	| VAR IDENTIFIER COLON varType EQ expr #VarDefWithType
 	;
 
-fn_call : lvalue op_call ;
+constDef
+	: CONST IDENTIFIER EQ expr               #ConstDefWithoutType
+	| CONST IDENTIFIER COLON varType EQ expr #ConstDefWithType
+	;
+
+assign : left = lValue assignOp right = expr ;
+
+assignOp : op =
+	( EQ
+	| ADD_EQ
+	| SUB_EQ
+	| MUL_EQ
+	| DIV_EQ
+	| MOD_EQ)
+	;
+
+fnCall : lValue callOp ;
 
 /////////////////
 // Expressions //
 /////////////////
 
 expr
-	: literal
-	| lvalue
-	| lvalue (INCR | DECR)
-	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS
+	: literal     # ExprLiteral
+	| lValue      # ExprlValue
+	| lValue INCR # ExprIncr
+	| lValue DECR # ExprDecr
+	| fnCall      # ExprFnCall
+	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParenthesis
 
-	| MINUS expr
-	| expr
-		( MODULO
-		| SLASH
-		| STAR ) expr
-    | expr
-        ( PLUS
-        | MINUS ) expr
+	| MINUS expr #ExprMinus
+	| left = expr MODULO right = expr #ExprMod
+	| left = expr SLASH  right = expr #ExprDiv
+	| left = expr STAR   right = expr #ExprMul
+	| left = expr MINUS  right = expr #ExprSub
+	| left = expr PLUS   right = expr #ExprAdd
 	;
 
 literal	: L_NUM	;
@@ -100,21 +106,22 @@ literal	: L_NUM	;
 // Allocated data //
 ////////////////////
 
-lvalue
-	: IDENTIFIER
-	| OPEN_PARENTHESIS lvalue CLOSE_PARENTHESIS
-	| (INCR | DECR) lvalue
+lValue
+	: IDENTIFIER  #LValueId
+	| INCR lValue #LValueIncr
+	| DECR lValue #LValueDecr
+	| OPEN_PARENTHESIS lValue CLOSE_PARENTHESIS #LValueParenthesis
 	;
 
 ///////////
 // Types //
 ///////////
 
-var_type : primitive_type ;
+varType
+	: INT #Integer
+	;
 
-primitive_type : INT;
-
-return_type
-	: VOID
-	| var_type
+returnType
+	: VOID    #WithoutReturnType
+	| varType #WithReturnType
 	;

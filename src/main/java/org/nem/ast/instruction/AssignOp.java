@@ -5,6 +5,6 @@ public enum AssignOp {
 	AddEqual,
 	SubEqual,
 	MulEqual,
-	DicEqual,
+	DivEqual,
 	ModEqual
 }

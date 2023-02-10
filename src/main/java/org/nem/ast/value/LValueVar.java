@@ -1,9 +1,9 @@
 package org.nem.ast.value;
 
-public class Variable implements LValue{
+public class LValueVar implements LValue {
 	public final String name;
 
-	Variable(String name) {
+	public LValueVar(String name) {
 		this.name = name;
 	}
 }

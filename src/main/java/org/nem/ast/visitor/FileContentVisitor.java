@@ -1,4 +1,4 @@
-package org.nem.visitor;
+package org.nem.ast.visitor;
 
 import org.nem.ast.FileContent;
 import org.nem.ast.function.Function;
@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 public class FileContentVisitor extends NEMParserBaseVisitor<FileContent> {
 
 	@Override
-	public FileContent visitFile_content(NEMParser.File_contentContext ctx) {
+	public FileContent visitFileContent(NEMParser.FileContentContext ctx) {
 		FnVisitor fnVisitor = new FnVisitor();
 
 		Map<String, Function> functionMap = ctx
-			.top_level()
+			.topLevel()
 			.stream()
-			.filter(top -> !top.fn_def().isEmpty())
-			.map(top -> top.fn_def().accept(fnVisitor))
+			.filter(top -> !top.fnDef().isEmpty())
+			.map(top -> top.fnDef().accept(fnVisitor))
 			.collect(Collectors.toMap(f -> f.name, f -> f));
 
 		return new FileContent(functionMap);

@@ -44,11 +44,11 @@ EXCLAMATION : '!' ;
 // Assignement operators
 
 EQ     : '=' ;
-EQ_ADD : '+=' ;
-EQ_SUB : '-=' ;
-EQ_MUL : '*=' ;
-EQ_DIV : '/=' ;
-EQ_MOD : '%=' ;
+ADD_EQ : '+=' ;
+SUB_EQ : '-=' ;
+MUL_EQ : '*=' ;
+DIV_EQ : '/=' ;
+MOD_EQ : '%=' ;
 
 // Increment operators
 
