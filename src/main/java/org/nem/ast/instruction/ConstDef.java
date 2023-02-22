@@ -5,20 +5,16 @@ import org.nem.ast.type.Type;
 
 import java.util.Optional;
 
-public class ConstDef implements Instruction {
-	public final String name;
-	public final Optional<Type> type;
-	public final Expression expression;
+public record ConstDef(
+		String name,
+		Optional<Type> type,
+		Expression expression) implements Instruction {
 
-	public ConstDef(String name, Expression expression) {
-		this.name = name;
-		this.type = Optional.empty();
-		this.expression = expression;
+	public ConstDef(String n, Expression e) {
+		this(n, Optional.empty(), e);
 	}
 
-	public ConstDef(String name, Type type, Expression expression) {
-		this.name = name;
-		this.type = Optional.of(type);
-		this.expression = expression;
+	public ConstDef(String n, Type t, Expression e) {
+		this(n, Optional.of(t), e);
 	}
 }

@@ -19,7 +19,7 @@ public class FileContentVisitor extends NEMParserBaseVisitor<FileContent> {
 			.stream()
 			.filter(top -> !top.fnDef().isEmpty())
 			.map(top -> top.fnDef().accept(fnVisitor))
-			.collect(Collectors.toMap(f -> f.name, f -> f));
+			.collect(Collectors.toMap(f -> f.name(), f -> f));
 
 		return new FileContent(functionMap);
 	}

@@ -1,6 +1,8 @@
 package org.nem.ast.visitor;
 
 import org.nem.ast.expression.*;
+import org.nem.ast.expression.ExprFnCall;
+import org.nem.ast.expression.ArithOp;
 import org.nem.ast.value.LValue;
 import org.nem.grammar.NEMParser;
 import org.nem.grammar.NEMParserBaseVisitor;

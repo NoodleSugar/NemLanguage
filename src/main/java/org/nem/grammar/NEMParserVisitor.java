@@ -41,19 +41,11 @@ public interface NEMParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParamSeq(NEMParser.ParamSeqContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ParamWithoutName}
-	 * labeled alternative in {@link NEMParser#param}.
+	 * Visit a parse tree produced by {@link NEMParser#param}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParamWithoutName(NEMParser.ParamWithoutNameContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ParamWithName}
-	 * labeled alternative in {@link NEMParser#param}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParamWithName(NEMParser.ParamWithNameContext ctx);
+	T visitParam(NEMParser.ParamContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NEMParser#callOp}.
 	 * @param ctx the parse tree

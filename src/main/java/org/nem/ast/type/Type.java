@@ -1,4 +1,4 @@
 package org.nem.ast.type;
 
-public interface Type {
+public sealed interface Type permits NativeType {
 }

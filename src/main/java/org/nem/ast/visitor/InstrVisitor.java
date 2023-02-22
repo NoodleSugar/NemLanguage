@@ -2,6 +2,7 @@ package org.nem.ast.visitor;
 
 import org.nem.ast.expression.Expression;
 import org.nem.ast.instruction.*;
+import org.nem.ast.instruction.AssignOp;
 import org.nem.ast.type.Type;
 import org.nem.ast.type.TypeFactory;
 import org.nem.ast.value.LValue;
@@ -28,7 +29,7 @@ public class InstrVisitor extends NEMParserBaseVisitor<Instruction> {
 		final String name = ctx.IDENTIFIER().getText();
 		final Expression expression = ctx.expr().accept(new ExprVisitor());
 
-		return new ConstDef(name, expression);
+		return new ConstDef(name,expression);
 	}
 
 	@Override
@@ -71,6 +72,6 @@ public class InstrVisitor extends NEMParserBaseVisitor<Instruction> {
 
 		LValue left = ctx.left.accept(new LValueVisitor());
 		Expression right = ctx.right.accept(new ExprVisitor());
-		return new Assignment(op, left, right);
+		return new Assign(op, left, right);
 	}
 }

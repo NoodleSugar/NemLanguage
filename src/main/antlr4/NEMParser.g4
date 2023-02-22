@@ -23,10 +23,7 @@ fnSignature : IDENTIFIER OPEN_PARENTHESIS paramSeq? CLOSE_PARENTHESIS returnType
 
 paramSeq : param (COMMA param)* ;
 
-param
-    : varType                  #ParamWithoutName
-    | IDENTIFIER COLON varType #ParamWithName
-    ;
+param : IDENTIFIER COLON varType ;
 
 callOp : OPEN_PARENTHESIS argSeq? CLOSE_PARENTHESIS ;
 
@@ -55,7 +52,8 @@ incrInstr
 	;
 
 varDecl
-	: VAR IDENTIFIER COLON varType ;
+	: VAR IDENTIFIER COLON varType
+	;
 
 varDef
 	: VAR IDENTIFIER EQ expr               #VarDefWithoutType
@@ -86,7 +84,7 @@ fnCall : lValue callOp ;
 
 expr
 	: literal     # ExprLiteral
-	| lValue      # ExprlValue
+	| lValue      # ExprLValue
 	| lValue INCR # ExprIncr
 	| lValue DECR # ExprDecr
 	| fnCall      # ExprFnCall

@@ -1,4 +1,13 @@
 package org.nem.ast.instruction;
 
-public interface Instruction {
+public sealed interface Instruction permits
+		VarDecl,
+		VarDef,
+		ConstDef,
+		Assign,
+		FnCall,
+		PreIncr,
+		PostIncr,
+		PreDecr,
+		PostDecr {
 }
