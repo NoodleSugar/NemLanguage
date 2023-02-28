@@ -25,7 +25,7 @@ paramSeq : param (COMMA param)* ;
 
 param : IDENTIFIER COLON varType ;
 
-callOp : OPEN_PARENTHESIS argSeq? CLOSE_PARENTHESIS ;
+fnCall : IDENTIFIER OPEN_PARENTHESIS argSeq? CLOSE_PARENTHESIS ;
 
 argSeq : expr (COMMA expr)* ;
 
@@ -41,14 +41,7 @@ instr
 	| constDef
 	| assign
 	| fnCall
-	| incrInstr
-	;
-
-incrInstr
-	: INCR lValue # InstrPreIncr
-	| DECR lValue # InstrPreDecr
-	| lValue INCR # InstrPostIncr
-	| lValue DECR # InstrPostDecr
+	| incr
 	;
 
 varDecl
@@ -65,7 +58,7 @@ constDef
 	| CONST IDENTIFIER COLON varType EQ expr #ConstDefWithType
 	;
 
-assign : left = lValue assignOp right = expr ;
+assign : lValue assignOp expr ;
 
 assignOp : op =
 	( EQ
@@ -76,18 +69,15 @@ assignOp : op =
 	| MOD_EQ)
 	;
 
-fnCall : lValue callOp ;
-
 /////////////////
 // Expressions //
 /////////////////
 
 expr
-	: literal     # ExprLiteral
-	| lValue      # ExprLValue
-	| lValue INCR # ExprIncr
-	| lValue DECR # ExprDecr
-	| fnCall      # ExprFnCall
+	: literal # ExprLiteral
+	| lValue  # ExprLValue
+	| incr    # ExprIncr
+	| fnCall  # ExprFnCall
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParenthesis
 
 	| MINUS expr #ExprMinus
@@ -98,6 +88,13 @@ expr
 	| left = expr PLUS   right = expr #ExprAdd
 	;
 
+incr
+	: INCR lValue # PreIncr
+	| DECR lValue # PreDecr
+	| lValue INCR # PostIncr
+	| lValue DECR # PostDecr
+	;
+
 literal	: L_NUM	;
 
 ////////////////////
@@ -106,8 +103,6 @@ literal	: L_NUM	;
 
 lValue
 	: IDENTIFIER  #LValueId
-	| INCR lValue #LValueIncr
-	| DECR lValue #LValueDecr
 	| OPEN_PARENTHESIS lValue CLOSE_PARENTHESIS #LValueParenthesis
 	;
 
