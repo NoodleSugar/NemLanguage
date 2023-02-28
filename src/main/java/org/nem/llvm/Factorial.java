@@ -1,19 +1,15 @@
 package org.nem.llvm;
 
-import org.bytedeco.javacpp.BytePointer;
-import org.bytedeco.javacpp.Pointer;
-import org.bytedeco.javacpp.PointerPointer;
+import org.bytedeco.javacpp.*;
 import org.bytedeco.llvm.LLVM.*;
-import org.nem.ast.FileContent;
 
 import static org.bytedeco.llvm.global.LLVM.*;
 
-class Interpretor {
-	private static final String DEFAULT_MODULE = "default";
-
+public class Factorial {
+	// a 'char *' used to retrieve error messages from LLVM
 	private static final BytePointer error = new BytePointer();
 
-	public static void run(FileContent content) {
+	public static void main(String[] args) {
 		// Stage 1: Initialize LLVM components
 		LLVMInitializeCore(LLVMGetGlobalPassRegistry());
 		LLVMLinkInMCJIT();
@@ -23,9 +19,8 @@ class Interpretor {
 
 		// Stage 2: Build the factorial function.
 		LLVMContextRef context = LLVMContextCreate();
-		LLVMModuleRef module = LLVMModuleCreateWithNameInContext(DEFAULT_MODULE, context);
+		LLVMModuleRef module = LLVMModuleCreateWithNameInContext("factorial", context);
 		LLVMBuilderRef builder = LLVMCreateBuilderInContext(context);
-
 		LLVMTypeRef i32Type = LLVMInt32TypeInContext(context);
 		LLVMTypeRef factorialType = LLVMFunctionType(i32Type, i32Type, /* argumentCount */ 1, /* isVariadic */ 0);
 
