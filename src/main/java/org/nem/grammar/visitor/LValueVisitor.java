@@ -1,4 +1,4 @@
-package org.nem.ast.visitor;
+package org.nem.grammar.visitor;
 
 import org.nem.ast.value.LValue;
 import org.nem.ast.value.LValueDecr;

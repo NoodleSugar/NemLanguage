@@ -8,8 +8,6 @@ import org.nem.ast.function.Parameter;
 import org.nem.ast.instruction.*;
 import org.nem.ast.instruction.AssignOp;
 import org.nem.ast.type.NativeType;
-import org.nem.ast.type.Type;
-import org.nem.ast.type.TypeFactory;
 import org.nem.ast.value.LValueVar;
 
 import java.io.IOException;
@@ -18,12 +16,12 @@ import java.io.InputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AstComputerTest {
-	private static final String BASIC_FN_DEF = "basic_fn_def.nem";
+	public static final String BASIC_FN_DEF = "basic_fn_def.nem";
 
 	@Test
 	public void basicFnDef() throws IOException {
 		InputStream fileStream = getClass().getResourceAsStream(BASIC_FN_DEF);
-		FileContent content = AstComputer.parseFileContent(fileStream);
+		FileContent content = AstComputer.parse(fileStream);
 
 		assertNotNull(content);
 		assertEquals(1, content.functions().size());

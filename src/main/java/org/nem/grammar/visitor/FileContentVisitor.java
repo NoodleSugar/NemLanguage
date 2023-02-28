@@ -1,4 +1,4 @@
-package org.nem.ast.visitor;
+package org.nem.grammar.visitor;
 
 import org.nem.ast.FileContent;
 import org.nem.ast.function.Function;

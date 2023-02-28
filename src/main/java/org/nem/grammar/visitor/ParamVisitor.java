@@ -1,4 +1,4 @@
-package org.nem.ast.visitor;
+package org.nem.grammar.visitor;
 
 import org.nem.ast.function.Parameter;
 import org.nem.ast.type.Type;
