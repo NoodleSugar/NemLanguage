@@ -1,0 +1,4 @@
+lexer grammar NEMLexer;
+
+options {
+}
