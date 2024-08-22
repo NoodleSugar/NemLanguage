@@ -13,4 +13,11 @@ std::any ParseTreeVisitor::visitLiteralInt(NEMParser::LiteralIntContext* ctx)
 	return buildNodeValue<Literal>(ctx, value);
 }
 
+std::any ParseTreeVisitor::visitLiteralReal(NEMParser::LiteralRealContext* ctx)
+{
+	const auto value = ctx->L_REAL()->getText();
+
+	return buildNodeValue<Literal>(ctx, value);
+}
+
 } // namespace nem::antlr

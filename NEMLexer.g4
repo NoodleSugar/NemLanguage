@@ -12,6 +12,14 @@ ML_COMMENT : '/*' .*? '*/'-> skip ;
 
 WHITESPACE : [\t\r\n ]+ -> skip ;
 
+///////////////////////
+// Simple characters //
+///////////////////////
+
+MINUS  : '-' ;
+
+POINT       : '.' ;
+
 //////////////
 // Literals //
 //////////////
@@ -27,11 +35,19 @@ fragment L_OCT : Z [oO] O+ (['] O+)* ;
 fragment L_HEX : Z [xX] H+ (['] H+)* ;
 fragment L_DEC : D+;
 
+fragment L_FLOAT: L_DEC POINT L_DEC;
+fragment L_EXP  : (L_DEC | L_FLOAT) 'e' MINUS? L_DEC;
+
 L_INT
 	: L_BIN
 	| L_OCT
 	| L_HEX
 	| L_DEC
+	;
+
+L_REAL
+	: L_FLOAT
+	| L_EXP
 	;
 
 ANY: . ;

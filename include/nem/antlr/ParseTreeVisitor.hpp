@@ -12,6 +12,7 @@ class ParseTreeVisitor : public NEMParserBaseVisitor
 {
 public:
 	std::any visitLiteralInt(NEMParser::LiteralIntContext*) override;
+	std::any visitLiteralReal(NEMParser::LiteralRealContext*) override;
 
 private:
 	SourceInfo			computeSourceInfo(const antlr4::ParserRuleContext*);
