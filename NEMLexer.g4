@@ -19,10 +19,22 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 MINUS  : '-' ;
 
 POINT       : '.' ;
+COLON       : ':' ;
+SEMICOLON   : ';' ;
+
+///////////////
+// Operators //
+///////////////
+
+// Assignement operators
+
+EQ     : '=' ;
 
 //////////////
 // Keywords //
 //////////////
+
+VAR   : 'var' ;
 
 // Native types
 INT  : 'int' ;
@@ -58,5 +70,7 @@ L_REAL
 	: L_FLOAT
 	| L_EXP
 	;
+
+IDENTIFIER : [_a-zA-Z][_a-zA-Z0-9]* ;
 
 ANY: . ;

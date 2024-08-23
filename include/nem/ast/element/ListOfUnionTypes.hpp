@@ -5,7 +5,12 @@
 //////////////////////////////
 
 #define NEM_LIST_OF_AST_UNION_TYPES_OF_Expression \
-	LiteralNode
+	 LiteralNode,                                 \
+	 IdentifierNode
+
+#define NEM_LIST_OF_AST_UNION_TYPES_OF_Instruction \
+	 DeclarationNode,                              \
+	 DefinitionNode
 
 #define NEM_LIST_OF_AST_UNION_TYPES_OF_UnqualifiedType \
 	NativeTypeNode

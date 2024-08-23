@@ -6,10 +6,14 @@
 
 #define NEM_LIST_OF_AST_UNIONS \
 	Expression,                \
+	 Instruction,              \
 	Type
 
 #define NEM_LIST_OF_AST_STRUCTS \
-	Literal
+	Identifier,                 \
+	 Literal,                   \
+	 Declaration,               \
+	 Definition
 
 #define NEM_LIST_OF_AST_ENUMS \
 	NativeType

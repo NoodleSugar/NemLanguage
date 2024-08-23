@@ -23,6 +23,7 @@ target_link_libraries(${NEM_ANTLR} PUBLIC ANTLR)
 target_sources(${NEM_ANTLR}
 	PRIVATE
 		src/antlr/ParseTreeVisitor/Helpers.cpp
+		src/antlr/ParseTreeVisitor/Instructions.cpp
 		src/antlr/ParseTreeVisitor/Expressions.cpp
 		src/antlr/ParseTreeVisitor/Types.cpp
 )

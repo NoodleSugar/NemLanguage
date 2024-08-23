@@ -2,6 +2,7 @@ add_executable(ParseTreeVisitorTest)
 
 target_sources(ParseTreeVisitorTest
 	PRIVATE
+		ParseTreeVisitor/Instructions.cpp
 		ParseTreeVisitor/Expressions.cpp
 		ParseTreeVisitor/Types.cpp
 )
