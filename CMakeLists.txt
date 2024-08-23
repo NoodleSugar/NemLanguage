@@ -24,6 +24,7 @@ target_sources(${NEM_ANTLR}
 	PRIVATE
 		src/antlr/ParseTreeVisitor/Helpers.cpp
 		src/antlr/ParseTreeVisitor/Expressions.cpp
+		src/antlr/ParseTreeVisitor/Types.cpp
 )
 
 # Tests

@@ -42,6 +42,10 @@ protected:
 	}
 
 
+	static constexpr auto ruleType =
+	 [](NEMParser& parser)
+	{ return parser.type(); };
+
 	static constexpr auto ruleExpr =
 	 [](NEMParser& parser)
 	{ return parser.expr(); };

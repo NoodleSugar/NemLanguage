@@ -21,6 +21,15 @@ MINUS  : '-' ;
 POINT       : '.' ;
 
 //////////////
+// Keywords //
+//////////////
+
+// Native types
+INT  : 'int' ;
+UINT : 'uint' ;
+REAL : 'real' ;
+
+//////////////
 // Literals //
 //////////////
 

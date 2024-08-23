@@ -3,6 +3,7 @@ add_executable(ParseTreeVisitorTest)
 target_sources(ParseTreeVisitorTest
 	PRIVATE
 		ParseTreeVisitor/Expressions.cpp
+		ParseTreeVisitor/Types.cpp
 )
 
 set_target_properties(ParseTreeVisitorTest PROPERTIES CXX_STANDARD 17)

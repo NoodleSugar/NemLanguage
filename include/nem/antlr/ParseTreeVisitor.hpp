@@ -14,6 +14,10 @@ public:
 	std::any visitLiteralInt(NEMParser::LiteralIntContext*) override;
 	std::any visitLiteralReal(NEMParser::LiteralRealContext*) override;
 
+	std::any visitTypeInt(NEMParser::TypeIntContext*) override;
+	std::any visitTypeUInt(NEMParser::TypeUIntContext*) override;
+	std::any visitTypeReal(NEMParser::TypeRealContext*) override;
+
 private:
 	SourceInfo			computeSourceInfo(const antlr4::ParserRuleContext*);
 	SourceInfo			computeSourceInfo(const antlr4::Token*, const antlr4::Token*);
