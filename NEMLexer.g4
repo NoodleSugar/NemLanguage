@@ -16,11 +16,24 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 // Simple characters //
 ///////////////////////
 
+PLUS   : '+' ;
 MINUS  : '-' ;
+STAR   : '*' ;
+SLASH  : '/' ;
+MODULO : '%' ;
+
+OPEN_PARENTHESIS  : '(' ;
+CLOSE_PARENTHESIS : ')' ;
+OPEN_BRACE        : '{' ;
+CLOSE_BRACE       : '}' ;
+OPEN_CHEVRON      : '<' ;
+CLOSE_CHEVRON     : '>' ;
 
 POINT       : '.' ;
+COMMA       : ',' ;
 COLON       : ':' ;
 SEMICOLON   : ';' ;
+EXCLAMATION : '!' ;
 
 ///////////////
 // Operators //
@@ -29,14 +42,24 @@ SEMICOLON   : ';' ;
 // Assignement operators
 
 EQ     : '=' ;
+ADD_EQ : '+=' ;
+SUB_EQ : '-=' ;
+MUL_EQ : '*=' ;
+DIV_EQ : '/=' ;
+MOD_EQ : '%=' ;
 
 //////////////
 // Keywords //
 //////////////
 
+FN    : 'fn' ;
 VAR   : 'var' ;
+CONST : 'const' ;
+
+RETURN : 'return' ;
 
 // Native types
+BOOL : 'bool' ;
 INT  : 'int' ;
 UINT : 'uint' ;
 REAL : 'real' ;
@@ -58,6 +81,11 @@ fragment L_DEC : D+;
 
 fragment L_FLOAT: L_DEC POINT L_DEC;
 fragment L_EXP  : (L_DEC | L_FLOAT) 'e' MINUS? L_DEC;
+
+L_BOOL
+	: 'true'
+	| 'false'
+	;
 
 L_INT
 	: L_BIN

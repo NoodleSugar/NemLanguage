@@ -1,0 +1,12 @@
+fn main() int
+{
+	var a : int;
+	var b : int;
+
+	a = 2;
+	b = 3;
+
+	return f(a, b);
+}
+
+fn f(first : int, second : int) int { return first + second; }

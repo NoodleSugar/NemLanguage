@@ -13,6 +13,13 @@ std::any ParseTreeVisitor::visitInstrTerminated(NEMParser::InstrTerminatedContex
 	return ctx->terminatedInstr()->accept(this);
 }
 
+std::any ParseTreeVisitor::visitInstrBlock(NEMParser::InstrBlockContext* ctx)
+{
+	const auto block = visitAndCast<Block>(ctx->block());
+
+	return buildNodeValue<Block>(ctx, block);
+}
+
 std::any ParseTreeVisitor::visitInstrVarDecl(NEMParser::InstrVarDeclContext* ctx)
 {
 	const auto identifier = computeIdentifierNode(ctx->IDENTIFIER());
@@ -36,6 +43,66 @@ std::any ParseTreeVisitor::visitInstrVarDefWithoutType(NEMParser::InstrVarDefWit
 	const auto value	  = visitExpression(ctx->expr());
 
 	return buildNodeValue<Definition>(ctx, identifier, std::nullopt, value);
+}
+
+std::any ParseTreeVisitor::visitInstrAssign(NEMParser::InstrAssignContext* ctx)
+{
+	return buildInstrAssign(AssignOp::Equal,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrAssignAdd(NEMParser::InstrAssignAddContext* ctx)
+{
+	return buildInstrAssign(AssignOp::AddEqual,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrAssignSub(NEMParser::InstrAssignSubContext* ctx)
+{
+	return buildInstrAssign(AssignOp::SubEqual,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrAssignMul(NEMParser::InstrAssignMulContext* ctx)
+{
+	return buildInstrAssign(AssignOp::MulEqual,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrAssignDiv(NEMParser::InstrAssignDivContext* ctx)
+{
+	return buildInstrAssign(AssignOp::DivEqual,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrAssignMod(NEMParser::InstrAssignModContext* ctx)
+{
+	return buildInstrAssign(AssignOp::ModEqual,
+							  ctx,
+							  ctx->IDENTIFIER(),
+							  ctx->expr());
+}
+
+std::any ParseTreeVisitor::visitInstrReturnValue(NEMParser::InstrReturnValueContext* ctx)
+{
+	const auto value = visitExpression(ctx->expr());
+
+	return buildNodeValue<Return>(ctx, value);
+}
+
+std::any ParseTreeVisitor::visitInstrReturn(NEMParser::InstrReturnContext* ctx)
+{
+	return buildNodeValue<Return>(ctx);
 }
 
 } // namespace nem::antlr

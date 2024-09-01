@@ -7,13 +7,24 @@
 #define NEM_LIST_OF_AST_UNIONS \
 	Expression,                \
 	 Instruction,              \
-	Type
+	 UnqualifiedType,          \
+	 Type
 
 #define NEM_LIST_OF_AST_STRUCTS \
 	Identifier,                 \
+	 ConstType,                 \
+	 Parameter,                 \
 	 Literal,                   \
+	 Minus,                     \
+	 Arithmetic,                \
+	 Call,                      \
 	 Declaration,               \
-	 Definition
+	 Definition,                \
+	 Assignment,                \
+	 Return,                    \
+	 Block,                     \
+	 Function,                  \
+	 File
 
 #define NEM_LIST_OF_AST_ENUMS \
 	NativeType

@@ -1,0 +1,22 @@
+fn main() int
+{
+	var a : int;
+	var b : int = 2;
+	var c = 3;
+	var d : const int;
+
+	{
+		a =  2;
+		a += 2;
+		a -= 2;
+		a *= 2;
+		a /= 2;
+		a %= 2;
+	}
+
+	f();
+
+	return 0;
+}
+
+fn f() void { return; }

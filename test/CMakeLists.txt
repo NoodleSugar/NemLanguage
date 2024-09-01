@@ -8,3 +8,5 @@ add_custom_command(TARGET MoveResources POST_BUILD
 )
 
 add_subdirectory(src/antlr/)
+add_subdirectory(src/ast/)
+add_subdirectory(src/semantic/)

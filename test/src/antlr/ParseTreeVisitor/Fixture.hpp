@@ -41,6 +41,21 @@ protected:
 		return std::any_cast<nem::antlr::ParseTreeValue>(ast);
 	}
 
+	static constexpr auto ruleFile =
+	 [](NEMParser& parser)
+	{ return parser.file(); };
+
+	static constexpr auto ruleFnDef =
+	 [](NEMParser& parser)
+	{ return parser.fnDef(); };
+
+	static constexpr auto ruleParam =
+	 [](NEMParser& parser)
+	{ return parser.param(); };
+
+	static constexpr auto ruleCall =
+	 [](NEMParser& parser)
+	{ return parser.call(); };
 
 	static constexpr auto ruleType =
 	 [](NEMParser& parser)
@@ -49,4 +64,8 @@ protected:
 	static constexpr auto ruleExpr =
 	 [](NEMParser& parser)
 	{ return parser.expr(); };
+
+	static constexpr auto ruleInstr =
+	 [](NEMParser& parser)
+	{ return parser.instr(); };
 };

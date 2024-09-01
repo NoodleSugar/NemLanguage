@@ -6,6 +6,17 @@ namespace nem::antlr
 
 using namespace nem::ast;
 
+std::any ParseTreeVisitor::visitTypeWithConst(NEMParser::TypeWithConstContext* ctx)
+{
+	const auto unqualifiedType = visitUnqualifiedType(ctx->unqualifiedType());
+
+	return buildNodeValue<ConstType>(ctx, unqualifiedType);
+}
+
+std::any ParseTreeVisitor::visitTypeBool(NEMParser::TypeBoolContext* ctx)
+{
+	return buildNodeValue<NativeType>(ctx, NativeTypeEnum::Bool);
+}
 
 std::any ParseTreeVisitor::visitTypeInt(NEMParser::TypeIntContext* ctx)
 {
