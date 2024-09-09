@@ -40,6 +40,7 @@ target_link_libraries(${NEM_IR} PUBLIC LLVM)
 
 target_sources(${NEM_IR}
 	PRIVATE
+		src/ir/Jit.cpp
 		src/ir/IRModule.cpp
 		src/ir/IRBuilder/IRBuilder.cpp
 		src/ir/IRBuilder/Function.cpp

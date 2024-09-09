@@ -25,7 +25,10 @@ public:
 	friend llvm::raw_ostream& operator<<(llvm::raw_ostream&, const IRModule&);
 	friend std::ostream&	  operator<<(std::ostream&, const IRModule&);
 
+	static IRModule fromFile(const char*);
+
 	IRModule();
+	IRModule(LLVMContextPtr, LLVMModulePtr);
 	IRModule(const IRModule&) = delete;
 	IRModule(IRModule&&)	  = delete;
 

@@ -10,3 +10,4 @@ add_custom_command(TARGET MoveResources POST_BUILD
 add_subdirectory(src/parser/)
 add_subdirectory(src/ir/util)
 add_subdirectory(src/ir/IRBuilder)
+add_subdirectory(src/ir/jit)
