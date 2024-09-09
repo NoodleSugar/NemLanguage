@@ -24,6 +24,14 @@ public:
 	std::any visitLiteralInt(NEMParser::LiteralIntContext*) override;
 	std::any visitLiteralReal(NEMParser::LiteralRealContext*) override;
 
+	std::any visitExprParan(NEMParser::ExprParanContext*) override;
+
+	std::any visitExprUnMinus(NEMParser::ExprUnMinusContext*) override;
+	std::any visitExprBinSlash(NEMParser::ExprBinSlashContext*) override;
+	std::any visitExprBinStar(NEMParser::ExprBinStarContext*) override;
+	std::any visitExprBinMinus(NEMParser::ExprBinMinusContext*) override;
+	std::any visitExprBinPlus(NEMParser::ExprBinPlusContext*) override;
+
 	std::any visitTypeInt(NEMParser::TypeIntContext*) override;
 	std::any visitTypeReal(NEMParser::TypeRealContext*) override;
 
@@ -45,9 +53,13 @@ private:
 	ast::Instruction visitInstruction(antlr4::ParserRuleContext*);
 	ast::Type		 visitType(antlr4::ParserRuleContext*);
 
-	ast::SourceInfo computeSourceInfo(const antlr4::ParserRuleContext*);
-	ast::SourceInfo computeSourceInfo(const antlr4::Token*, const antlr4::Token*);
-	ast::Identifier computeIdentifier(antlr4::tree::TerminalNode*);
+	ast::SourceInfo		 computeSourceInfo(const antlr4::ParserRuleContext*);
+	ast::SourceInfo		 computeSourceInfo(const antlr4::Token*, const antlr4::Token*);
+	ast::Identifier		 computeIdentifier(antlr4::tree::TerminalNode*);
+	ast::BinaryOperation computeBinaryOperation(const antlr4::ParserRuleContext*,
+												ast::BinaryOp,
+												NEMParser::ExprContext* left,
+												NEMParser::ExprContext* right);
 
 	template<class T, class... Args>
 	inline auto buildAstElement(const antlr4::ParserRuleContext* ctx, Args&&... args)

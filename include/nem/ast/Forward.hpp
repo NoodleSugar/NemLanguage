@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <variant>
 #include <vector>
 
@@ -10,10 +11,15 @@ namespace nem::ast
 
 struct Node;
 
+enum class UnaryOp;
+enum class BinaryOp;
+
 #define NEM_AST_LIST_OF_INSTRUCTION_NODES \
 	Return
 #define NEM_AST_LIST_OF_EXPRESSION_NODES \
-	Literal
+	Literal,                             \
+	 UnaryOperation,                     \
+	 BinaryOperation
 #define NEM_AST_LIST_OF_TYPE_NODES \
 	NativeType
 
@@ -36,5 +42,10 @@ using Type		  = std::variant<NEM_AST_LIST_OF_TYPE_NODES>;
 using FunctionList = std::vector<Function>;
 
 using InstructionSeq = std::vector<Instruction>;
+
+using ExpressionPtr = std::shared_ptr<Expression>;
+
+template<class T>
+const auto MakePtr = std::make_shared<T>;
 
 } // namespace nem::ast

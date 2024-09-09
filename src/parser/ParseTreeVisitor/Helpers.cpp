@@ -84,4 +84,20 @@ Identifier ParseTreeVisitor::computeIdentifier(antlr4::tree::TerminalNode* id)
 	return Identifier{{info}, text};
 }
 
+BinaryOperation ParseTreeVisitor::computeBinaryOperation(
+ const antlr4::ParserRuleContext* ctx,
+ BinaryOp						  op,
+ NEMParser::ExprContext*		  left,
+ NEMParser::ExprContext*		  right)
+{
+	const auto info = computeSourceInfo(ctx);
+
+	auto l = MakePtr<Expression>();
+	auto r = MakePtr<Expression>();
+	*l	   = visitExpression(left);
+	*r	   = visitExpression(right);
+
+	return BinaryOperation{{info}, op, std::move(l), std::move(r)};
+}
+
 } // namespace nem::parser

@@ -16,7 +16,10 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 // Simple characters //
 ///////////////////////
 
+PLUS  : '+' ;
 MINUS : '-' ;
+STAR  : '*' ;
+SLASH : '/' ;
 
 OPEN_PARENTHESIS  : '(' ;
 CLOSE_PARENTHESIS : ')' ;

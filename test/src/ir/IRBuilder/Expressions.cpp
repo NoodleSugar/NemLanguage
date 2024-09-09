@@ -21,3 +21,33 @@ TEST_CASE_METHOD(IRBuilderFixture, "Literal")
 
 	CHECK(data.expectedIr == getIRString<Literal>(data.code, ParserRule::literal));
 }
+
+TEST_CASE_METHOD(IRBuilderFixture, "UnaryOperation")
+{
+	struct Data
+	{
+		std::string code;
+		std::string expectedIr;
+	};
+
+	auto data = GENERATE(
+	 Data{"-1", "i64 -1"},
+	 Data{"-1.0", "double -1.000000e+00"});
+
+	CHECK(data.expectedIr == getIRString<UnaryOperation>(data.code, ParserRule::expr));
+}
+
+TEST_CASE_METHOD(IRBuilderFixture, "BinaryOperation")
+{
+	struct Data
+	{
+		std::string code;
+		std::string expectedIr;
+	};
+
+	auto data = GENERATE(
+	 Data{"1 + 2", "i64 3"},
+	 Data{"1.0 + 2.0", "double 3.000000e+00"});
+
+	CHECK(data.expectedIr == getIRString<BinaryOperation>(data.code, ParserRule::expr));
+}

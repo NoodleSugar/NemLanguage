@@ -22,6 +22,8 @@ public:
 
 	llvm::Value*	build(const ast::Expression&);
 	llvm::Constant* build(const ast::Literal&);
+	llvm::Value*	build(const ast::UnaryOperation&);
+	llvm::Value*	build(const ast::BinaryOperation&);
 
 	llvm::Instruction* build(const ast::Instruction&);
 	llvm::ReturnInst*  build(const ast::Return&);

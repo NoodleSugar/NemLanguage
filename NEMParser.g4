@@ -32,7 +32,18 @@ terminatedInstr : RETURN expr #InstrReturnValue ;
 // Expressions //
 /////////////////
 
-expr : literal #ExprLiteral ;
+expr
+	: literal #ExprLiteral
+
+	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParan
+
+	| MINUS expr                      #ExprUnMinus
+	| left = expr SLASH  right = expr #ExprBinSlash
+	| left = expr STAR   right = expr #ExprBinStar
+	| left = expr MINUS  right = expr #ExprBinMinus
+	| left = expr PLUS   right = expr #ExprBinPlus
+	;
+
 literal
 	: L_INT  #LiteralInt
 	| L_REAL #LiteralReal
