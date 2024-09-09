@@ -16,7 +16,7 @@ enum class LiteralType
 struct Literal : Node
 {
 	LiteralType type;
-	std::string	 value;
+	std::string value;
 };
 
 } // namespace nem::ast
