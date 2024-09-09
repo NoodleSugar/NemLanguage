@@ -11,7 +11,8 @@ include(cmake/Antlr.cmake)
 
 # Main targets
 set(NEM_PARSER "nemparser")
-set(TARGET_LIST ${NEM_PARSER})
+set(NEM_IR "nemir")
+set(TARGET_LIST ${NEM_PARSER} ${NEM_IR})
 
 add_library(${NEM_PARSER} STATIC)
 add_library(${NEM_IR} STATIC)
@@ -33,6 +34,20 @@ target_sources(${NEM_PARSER}
 		src/parser/ParseTreeVisitor/Types.cpp
 )
 
+# Nem IR
+target_include_directories(${NEM_IR} PUBLIC include)
+target_link_libraries(${NEM_IR} PUBLIC LLVM)
+
+target_sources(${NEM_IR}
+	PRIVATE
+		src/ir/IRModule.cpp
+		src/ir/IRBuilder/IRBuilder.cpp
+		src/ir/IRBuilder/Function.cpp
+		src/ir/IRBuilder/Instructions.cpp
+		src/ir/IRBuilder/Expressions.cpp
+		src/ir/IRBuilder/Types.cpp
+		src/ir/util/LiteralParser.cpp
+)
 
 # Tests
 find_package(Catch2 REQUIRED)
