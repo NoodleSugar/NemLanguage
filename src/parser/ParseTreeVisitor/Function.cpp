@@ -34,4 +34,11 @@ std::any ParseTreeVisitor::visitBlock(NEMParser::BlockContext* ctx)
 	return buildAstElement<Block>(ctx, std::move(instructions));
 }
 
+std::any ParseTreeVisitor::visitCall(NEMParser::CallContext* ctx)
+{
+	const auto name = computeIdentifier(ctx->IDENTIFIER());
+
+	return buildAstElement<Call>(ctx, name);
+}
+
 } // namespace nem::parser

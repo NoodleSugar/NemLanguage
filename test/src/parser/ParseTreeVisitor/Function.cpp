@@ -40,3 +40,21 @@ TEST_CASE("Block")
 	auto& block = std::get<Block>(ast);
 	CHECK(data.instrCount == block.instructions.size());
 }
+
+TEST_CASE("Call")
+{
+	struct Data
+	{
+		std::string code;
+		std::string name;
+	};
+
+	auto data = GENERATE(
+	 Data{"f()", "f"});
+
+	auto ast = Parser(data.code).parse(ParserRule::call);
+	REQUIRE(std::holds_alternative<Call>(ast));
+
+	auto& call = std::get<Call>(ast);
+	CHECK(data.name == call.name.string);
+}

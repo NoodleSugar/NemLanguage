@@ -1,0 +1,13 @@
+; ModuleID = 'default'
+source_filename = "default"
+
+define i64 @main() {
+entry:
+  %calltmp = call i64 @f()
+  ret i64 %calltmp
+}
+
+define i64 @f() {
+entry:
+  ret i64 0
+}

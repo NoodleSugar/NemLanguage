@@ -17,6 +17,7 @@ public:
 	std::any visitFile(NEMParser::FileContext*) override;
 	std::any visitFnDef(NEMParser::FnDefContext*) override;
 	std::any visitBlock(NEMParser::BlockContext*) override;
+	std::any visitCall(NEMParser::CallContext*) override;
 
 	std::any visitInstrTerminated(NEMParser::InstrTerminatedContext*) override;
 	std::any visitInstrReturnValue(NEMParser::InstrReturnValueContext*) override;

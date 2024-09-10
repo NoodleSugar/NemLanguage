@@ -1,0 +1,3 @@
+fn main() int { return f(); }
+
+fn f() int { return 0; }

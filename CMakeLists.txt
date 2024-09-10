@@ -43,6 +43,7 @@ target_sources(${NEM_IR}
 		src/ir/Jit.cpp
 		src/ir/IRModule.cpp
 		src/ir/IRBuilder/IRBuilder.cpp
+		src/ir/IRBuilder/File.cpp
 		src/ir/IRBuilder/Function.cpp
 		src/ir/IRBuilder/Instructions.cpp
 		src/ir/IRBuilder/Expressions.cpp

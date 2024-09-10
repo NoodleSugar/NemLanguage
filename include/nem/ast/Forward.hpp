@@ -19,7 +19,8 @@ enum class BinaryOp;
 #define NEM_AST_LIST_OF_EXPRESSION_NODES \
 	Literal,                             \
 	 UnaryOperation,                     \
-	 BinaryOperation
+	 BinaryOperation,                    \
+	 Call
 #define NEM_AST_LIST_OF_TYPE_NODES \
 	NativeType
 

@@ -25,7 +25,7 @@ protected:
 	IRBuilderFixture() :
 		builder(module.createBuilder()) {}
 
-	template<class T>
+	template<class T = File>
 	std::string getIRString(const std::string& code, ParserRule::Type rule)
 	{
 		auto  astElement = Parser(code).parse(rule);
@@ -35,6 +35,20 @@ protected:
 
 		std::stringstream irStream;
 		llvm::raw_os_ostream(irStream) << *ir;
+
+		return irStream.str();
+	}
+
+	template<>
+	std::string getIRString<File>(const std::string& code, ParserRule::Type rule)
+	{
+		auto  astElement = Parser(code).parse(rule);
+		auto& ast		 = std::get<File>(astElement);
+
+		builder.build(ast);
+
+		std::stringstream irStream;
+		irStream << module;
 
 		return irStream.str();
 	}

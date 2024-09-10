@@ -18,6 +18,7 @@ topLevel : fnDef ;
 
 fnDef : FN IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS type block ;
 
+call : IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS ;
 //////////////////
 // Instructions //
 //////////////////
@@ -33,7 +34,9 @@ terminatedInstr : RETURN expr #InstrReturnValue ;
 /////////////////
 
 expr
+
 	: literal #ExprLiteral
+	| call    #ExprCall
 
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParan
 

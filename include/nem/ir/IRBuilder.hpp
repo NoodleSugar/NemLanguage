@@ -18,7 +18,10 @@ class IRBuilder
 public:
 	IRBuilder(llvm::LLVMContext&, llvm::Module&);
 
+	void build(const ast::File&);
+
 	llvm::Function* build(const ast::Function&);
+	llvm::CallInst* build(const ast::Call&);
 
 	llvm::Value*	build(const ast::Expression&);
 	llvm::Constant* build(const ast::Literal&);

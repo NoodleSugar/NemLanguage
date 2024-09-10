@@ -11,6 +11,7 @@
 	 topLevel,                  \
 	 fnDef,                     \
 	 block,                     \
+	 call,                      \
 	 instr,                     \
 	 terminatedInstr,           \
 	 expr,                      \

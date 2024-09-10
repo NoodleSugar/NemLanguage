@@ -8,6 +8,7 @@
 #include "element/Identifier.hpp"
 #include "element/Function.hpp"
 #include "element/Block.hpp"
+#include "element/Call.hpp"
 #include "element/Instructions.hpp"
 #include "element/Expressions.hpp"
 #include "element/Types.hpp"
