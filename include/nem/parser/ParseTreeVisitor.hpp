@@ -50,7 +50,7 @@ private:
 	ast::Identifier computeIdentifier(antlr4::tree::TerminalNode*);
 
 	template<class T, class... Args>
-	inline auto buildParseTreeValue(const antlr4::ParserRuleContext* ctx, Args&&... args)
+	inline auto buildAstElement(const antlr4::ParserRuleContext* ctx, Args&&... args)
 	{
 		static_assert(std::is_base_of_v<ast::Node, T>,
 					  "Template argument T should be derived from Node class");

@@ -16,7 +16,7 @@ std::any ParseTreeVisitor::visitFnDef(NEMParser::FnDefContext* ctx)
 	const auto returnType = visitType(returnTypeCtx);
 	const auto body		  = visitTreeValue<Block>(blockCtx);
 
-	return buildParseTreeValue<Function>(ctx, name, returnType, body);
+	return buildAstElement<Function>(ctx, name, returnType, body);
 }
 
 std::any ParseTreeVisitor::visitBlock(NEMParser::BlockContext* ctx)
@@ -31,7 +31,7 @@ std::any ParseTreeVisitor::visitBlock(NEMParser::BlockContext* ctx)
 				   [this](const auto elt)
 				   { return visitInstruction(elt); });
 
-	return buildParseTreeValue<Block>(ctx, std::move(instructions));
+	return buildAstElement<Block>(ctx, std::move(instructions));
 }
 
 } // namespace nem::parser

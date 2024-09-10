@@ -14,7 +14,7 @@ std::any ParseTreeVisitor::visitInstrReturnValue(NEMParser::InstrReturnValueCont
 {
 	const auto value = visitExpression(ctx->expr());
 
-	return buildParseTreeValue<Return>(ctx, value);
+	return buildAstElement<Return>(ctx, value);
 }
 
 } // namespace nem::parser

@@ -19,7 +19,7 @@ std::any ParseTreeVisitor::visitFile(NEMParser::FileContext* ctx)
 				   [&](const auto elt)
 				   { return visitTreeValue<Function>(elt); });
 
-	return buildParseTreeValue<File>(ctx, functions);
+	return buildAstElement<File>(ctx, functions);
 }
 
 } // namespace nem::parser
