@@ -9,6 +9,7 @@ namespace nem::ast
 
 enum class LiteralType
 {
+	Bool,
 	Int,
 	Real
 };
@@ -32,6 +33,8 @@ struct UnaryOperation : Node
 
 enum class BinaryOp
 {
+	Or,
+	And,
 	Plus,
 	Minus,
 	Star,

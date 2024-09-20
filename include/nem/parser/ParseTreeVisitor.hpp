@@ -22,17 +22,21 @@ public:
 	std::any visitInstrTerminated(NEMParser::InstrTerminatedContext*) override;
 	std::any visitInstrReturnValue(NEMParser::InstrReturnValueContext*) override;
 
+	std::any visitLiteralBool(NEMParser::LiteralBoolContext*) override;
 	std::any visitLiteralInt(NEMParser::LiteralIntContext*) override;
 	std::any visitLiteralReal(NEMParser::LiteralRealContext*) override;
 
 	std::any visitExprParan(NEMParser::ExprParanContext*) override;
 
 	std::any visitExprUnMinus(NEMParser::ExprUnMinusContext*) override;
+	std::any visitExprBinAnd(NEMParser::ExprBinAndContext*) override;
+	std::any visitExprBinOr(NEMParser::ExprBinOrContext*) override;
 	std::any visitExprBinSlash(NEMParser::ExprBinSlashContext*) override;
 	std::any visitExprBinStar(NEMParser::ExprBinStarContext*) override;
 	std::any visitExprBinMinus(NEMParser::ExprBinMinusContext*) override;
 	std::any visitExprBinPlus(NEMParser::ExprBinPlusContext*) override;
 
+	std::any visitTypeBool(NEMParser::TypeBoolContext*) override;
 	std::any visitTypeInt(NEMParser::TypeIntContext*) override;
 	std::any visitTypeReal(NEMParser::TypeRealContext*) override;
 

@@ -5,6 +5,12 @@
 namespace nem::ir
 {
 
+bool parseBool(const char* string)
+{
+	return std::string("true").compare(string) == 0;
+}
+
+
 inline int intFromDecimal(const char* string) { return std::stoi(string); }
 inline int intFromBinary(const char* string) { return std::stoi(string, nullptr, 2); }
 inline int intFromOctal(const char* string) { return std::stoi(string, nullptr, 8); }

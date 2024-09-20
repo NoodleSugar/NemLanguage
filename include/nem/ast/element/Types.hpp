@@ -7,6 +7,7 @@ namespace nem::ast
 
 enum class NativeTypeE
 {
+	Bool,
 	Int,
 	Real
 };

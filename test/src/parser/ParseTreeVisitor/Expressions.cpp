@@ -9,6 +9,8 @@ TEST_CASE("Literal")
 	};
 
 	auto data = GENERATE(
+	 Data{"true", LiteralType::Bool},
+	 Data{"false", LiteralType::Bool},
 	 Data{"0", LiteralType::Int},
 	 Data{"0001", LiteralType::Int},
 	 Data{"1", LiteralType::Int},
@@ -56,6 +58,12 @@ TEST_CASE("BinaryOperation")
 	};
 
 	auto data = GENERATE(
+	 Data{"true or true", BinaryOp::Or},
+	 Data{"true and true", BinaryOp::And},
+	 Data{"true or true and true", BinaryOp::Or},
+	 Data{"true and true or true", BinaryOp::Or},
+	 Data{"true and (true or true)", BinaryOp::And},
+	 Data{"(true or true) and true", BinaryOp::And},
 	 Data{"1 + 1", BinaryOp::Plus},
 	 Data{"1 - 1", BinaryOp::Minus},
 	 Data{"1 * 1", BinaryOp::Star},

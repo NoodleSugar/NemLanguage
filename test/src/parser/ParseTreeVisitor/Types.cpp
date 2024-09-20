@@ -9,6 +9,7 @@ TEST_CASE("NativeType")
 	};
 
 	auto data = GENERATE(
+	 Data{"bool", NativeTypeE::Bool},
 	 Data{"int", NativeTypeE::Int},
 	 Data{"real", NativeTypeE::Real});
 

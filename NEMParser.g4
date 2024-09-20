@@ -19,6 +19,7 @@ topLevel : fnDef ;
 fnDef : FN IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS type block ;
 
 call : IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS ;
+
 //////////////////
 // Instructions //
 //////////////////
@@ -41,6 +42,8 @@ expr
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParan
 
 	| MINUS expr                      #ExprUnMinus
+	| left = expr AND    right = expr #ExprBinAnd
+	| left = expr OR     right = expr #ExprBinOr
 	| left = expr SLASH  right = expr #ExprBinSlash
 	| left = expr STAR   right = expr #ExprBinStar
 	| left = expr MINUS  right = expr #ExprBinMinus
@@ -48,7 +51,8 @@ expr
 	;
 
 literal
-	: L_INT  #LiteralInt
+	: L_BOOL #LiteralBool
+	| L_INT  #LiteralInt
 	| L_REAL #LiteralReal
 	;
 
@@ -57,6 +61,7 @@ literal
 ///////////
 
 type
-	: INT  #TypeInt
+	: BOOL #TypeBool
+	| INT  #TypeInt
 	| REAL #TypeReal
 	;

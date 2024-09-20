@@ -5,6 +5,21 @@
 
 using namespace nem::ir;
 
+TEST_CASE("ParseBool")
+{
+	struct Data
+	{
+		std::string code;
+		bool		expected;
+	};
+
+	auto data = GENERATE(
+	 Data{"true", true},
+	 Data{"false", false});
+
+	CHECK(data.expected == parseBool(data.code.c_str()));
+}
+
 TEST_CASE("ParseInt")
 {
 	struct Data

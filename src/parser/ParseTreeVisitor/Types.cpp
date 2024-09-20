@@ -5,6 +5,11 @@ namespace nem::parser
 
 using namespace nem::ast;
 
+std::any ParseTreeVisitor::visitTypeBool(NEMParser::TypeBoolContext* ctx)
+{
+	return buildAstElement<NativeType>(ctx, NativeTypeE::Bool);
+}
+
 std::any ParseTreeVisitor::visitTypeInt(NEMParser::TypeIntContext* ctx)
 {
 	return buildAstElement<NativeType>(ctx, NativeTypeE::Int);

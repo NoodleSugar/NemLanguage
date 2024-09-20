@@ -16,6 +16,8 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 // Simple characters //
 ///////////////////////
 
+EQ : '=' ;
+
 PLUS  : '+' ;
 MINUS : '-' ;
 STAR  : '*' ;
@@ -29,14 +31,6 @@ CLOSE_BRACE       : '}' ;
 POINT     : '.' ;
 SEMICOLON : ';' ;
 
-///////////////
-// Operators //
-///////////////
-
-// Assignement operators
-
-EQ : '=' ;
-
 //////////////
 // Keywords //
 //////////////
@@ -45,13 +39,20 @@ FN : 'fn' ;
 
 RETURN : 'return' ;
 
+OR  : 'or' ;
+AND : 'and' ;
+
 // Native types
+BOOL : 'bool' ;
 INT  : 'int' ;
 REAL : 'real' ;
 
 //////////////
 // Literals //
 //////////////
+
+fragment L_TRUE  : 'true' ;
+fragment L_FALSE : 'false' ;
 
 fragment Z : '0' ;
 fragment B : [01] ;
@@ -66,6 +67,8 @@ fragment L_DEC : D+;
 
 fragment L_FLOAT: L_DEC POINT L_DEC;
 fragment L_EXP  : (L_DEC | L_FLOAT) 'e' MINUS? L_DEC;
+
+L_BOOL : L_TRUE | L_FALSE ;
 
 L_INT
 	: L_BIN

@@ -6,6 +6,13 @@ namespace nem::parser
 
 using namespace nem::ast;
 
+std::any ParseTreeVisitor::visitLiteralBool(NEMParser::LiteralBoolContext* ctx)
+{
+	const auto value = ctx->L_BOOL()->getText();
+
+	return buildAstElement<Literal>(ctx, LiteralType::Bool, value);
+}
+
 std::any ParseTreeVisitor::visitLiteralInt(NEMParser::LiteralIntContext* ctx)
 {
 	const auto value = ctx->L_INT()->getText();
@@ -31,6 +38,16 @@ std::any ParseTreeVisitor::visitExprUnMinus(NEMParser::ExprUnMinusContext* ctx)
 	*expr			= visitExpression(ctx->expr());
 
 	return buildAstElement<UnaryOperation>(ctx, UnaryOp::Minus, expr);
+}
+
+std::any ParseTreeVisitor::visitExprBinAnd(NEMParser::ExprBinAndContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::And, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinOr(NEMParser::ExprBinOrContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::Or, ctx->left, ctx->right)};
 }
 
 std::any ParseTreeVisitor::visitExprBinSlash(NEMParser::ExprBinSlashContext* ctx)

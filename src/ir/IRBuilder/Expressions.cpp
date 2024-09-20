@@ -40,6 +40,12 @@ llvm::Constant* IRBuilder::build(const Literal& lit)
 {
 	switch(lit.type)
 	{
+	case LiteralType::Bool:
+	{
+		auto str   = removeSeparator(lit.value);
+		auto value = parseBool(str.c_str());
+		return builder.getInt1(value);
+	}
 	case LiteralType::Int:
 	{
 		auto str   = removeSeparator(lit.value);
@@ -59,13 +65,13 @@ llvm::Value* IRBuilder::build(const UnaryOperation& op)
 	const auto value = build(*op.expr);
 	const auto type	 = value->getType();
 
-	if(type->isIntegerTy())
+	if(isIntType(type))
 	{
 		const auto zero = llvm::ConstantInt::get(type, 0);
 
 		return builder.CreateSub(zero, value, "subtmp");
 	}
-	else if(type->isDoubleTy())
+	else if(isRealType(type))
 	{
 		const auto zero = llvm::ConstantFP::get(type, 0);
 
@@ -74,7 +80,9 @@ llvm::Value* IRBuilder::build(const UnaryOperation& op)
 	else
 	{
 		llvm::errs() << "IRBuilder::build(const UnaryOperation&) :"
-						"Operand should be numeric\n";
+						"Unsupported operands type ["
+					 << type->getStructName()
+					 << "]\n";
 		return nullptr;
 	}
 }
@@ -94,7 +102,21 @@ llvm::Value* IRBuilder::build(const BinaryOperation& op)
 		return nullptr;
 	}
 
-	if(typeLeft->isIntegerTy())
+	if(isBoolType(typeLeft))
+	{
+		switch(op.op)
+		{
+		case BinaryOp::Or:
+			return builder.CreateOr(left, right, "ortmp");
+		case BinaryOp::And:
+			return builder.CreateAnd(left, right, "andtmp");
+		default:
+			llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
+							"Bool operands only support bool operators\n";
+			return nullptr;
+		}
+	}
+	else if(isIntType(typeLeft))
 	{
 		switch(op.op)
 		{
@@ -106,9 +128,13 @@ llvm::Value* IRBuilder::build(const BinaryOperation& op)
 			return builder.CreateMul(left, right, "multmp");
 		case BinaryOp::Slash:
 			return builder.CreateSDiv(left, right, "sdivtmp");
+		default:
+			llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
+							"Int operands only support numeric operators\n";
+			return nullptr;
 		}
 	}
-	else if(typeLeft->isDoubleTy())
+	else if(isRealType(typeLeft))
 	{
 		switch(op.op)
 		{
@@ -120,12 +146,18 @@ llvm::Value* IRBuilder::build(const BinaryOperation& op)
 			return builder.CreateFMul(left, right, "fmultmp");
 		case BinaryOp::Slash:
 			return builder.CreateFDiv(left, right, "fdivtmp");
+		default:
+			llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
+							"Real operands only support numeric operators\n";
+			return nullptr;
 		}
 	}
 	else
 	{
 		llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
-						"Operands should be numeric\n";
+						"Unsupported operands type ["
+					 << typeLeft->getStructName()
+					 << "]\n";
 		return nullptr;
 	}
 }

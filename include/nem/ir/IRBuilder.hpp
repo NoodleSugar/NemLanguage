@@ -15,6 +15,10 @@ class IRBuilder
 
 	llvm::Function* createFunctionPrototype(const ast::Function& function);
 
+	bool isBoolType(llvm::Type*);
+	bool isIntType(llvm::Type*);
+	bool isRealType(llvm::Type*);
+
 public:
 	IRBuilder(llvm::LLVMContext&, llvm::Module&);
 

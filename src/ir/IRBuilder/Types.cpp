@@ -31,6 +31,8 @@ llvm::Type* IRBuilder::build(const NativeType& type)
 {
 	switch(type.type)
 	{
+	case NativeTypeE::Bool:
+		return builder.getInt1Ty();
 	case NativeTypeE::Int:
 		return builder.getInt64Ty();
 	case NativeTypeE::Real:

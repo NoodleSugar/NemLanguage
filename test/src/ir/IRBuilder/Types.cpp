@@ -9,6 +9,7 @@ TEST_CASE_METHOD(IRBuilderFixture, "NativeType")
 	};
 
 	auto data = GENERATE(
+	 Data{"bool", "i1"},
 	 Data{"int", "i64"},
 	 Data{"real", "double"});
 

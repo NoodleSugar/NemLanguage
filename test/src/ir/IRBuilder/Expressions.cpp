@@ -9,6 +9,8 @@ TEST_CASE_METHOD(IRBuilderFixture, "Literal")
 	};
 
 	auto data = GENERATE(
+	 Data{"true", "i1 true"},
+	 Data{"false", "i1 false"},
 	 Data{"0", "i64 0"},
 	 Data{"0001", "i64 1"},
 	 Data{"1234", "i64 1234"},
@@ -46,6 +48,8 @@ TEST_CASE_METHOD(IRBuilderFixture, "BinaryOperation")
 	};
 
 	auto data = GENERATE(
+	 Data{"true and false", "i1 false"},
+	 Data{"true or false", "i1 true"},
 	 Data{"1 + 2", "i64 3"},
 	 Data{"1.0 + 2.0", "double 3.000000e+00"});
 
