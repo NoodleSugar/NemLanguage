@@ -100,7 +100,8 @@ if(ANTLR4_ZIP_REPOSITORY)
           # -DCMAKE_CXX_STANDARD:STRING=17 # if desired, compile the runtime with a different C++ standard
           # -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} # alternatively, compile the runtime with the same C++ standard as the outer project
       INSTALL_COMMAND ""
-      EXCLUDE_FROM_ALL 1)
+      EXCLUDE_FROM_ALL 1
+      DOWNLOAD_EXTRACT_TIMESTAMP true)
 else()
   ExternalProject_Add(
       antlr4_runtime
@@ -119,7 +120,8 @@ else()
           # -DCMAKE_CXX_STANDARD:STRING=17 # if desired, compile the runtime with a different C++ standard
           # -DCMAKE_CXX_STANDARD:STRING=${CMAKE_CXX_STANDARD} # alternatively, compile the runtime with the same C++ standard as the outer project
       INSTALL_COMMAND ""
-      EXCLUDE_FROM_ALL 1)
+      EXCLUDE_FROM_ALL 1
+      DOWNLOAD_EXTRACT_TIMESTAMP true)
 endif()
 
 # Separate build step as rarely people want both
