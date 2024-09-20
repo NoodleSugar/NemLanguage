@@ -21,7 +21,6 @@ message(STATUS "LLVM includes dir: ${LLVM_INCLUDE_DIRS}")
 message(STATUS "LLVM definitions: ${LLVM_DEFINITIONS_LIST}")
 message(STATUS "LLVM tools dir: ${LLVM_TOOLS_BINARY_DIR}")
 
-add_library(LLVM INTERFACE)
 set_target_properties(LLVM PROPERTIES CXX_STANDARD 17)
 
 target_include_directories(LLVM INTERFACE ${LLVM_INCLUDE_DIRS})
