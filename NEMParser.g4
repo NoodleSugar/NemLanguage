@@ -28,14 +28,17 @@ block : OPEN_BRACE instr* CLOSE_BRACE ;
 
 instr : terminatedInstr SEMICOLON #InstrTerminated ;
 
-terminatedInstr : RETURN expr #InstrReturnValue ;
+terminatedInstr
+	: IF OPEN_PARENTHESIS cond = expr CLOSE_PARENTHESIS then = block (ELSE else = block)? #InstrIf
+
+	| RETURN expr #InstrReturnValue
+	;
 
 /////////////////
 // Expressions //
 /////////////////
 
 expr
-
 	: literal #ExprLiteral
 	| call    #ExprCall
 

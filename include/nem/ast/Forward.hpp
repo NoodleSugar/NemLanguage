@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <optional>
 #include <variant>
 #include <vector>
 
@@ -15,7 +16,9 @@ enum class UnaryOp;
 enum class BinaryOp;
 
 #define NEM_AST_LIST_OF_INSTRUCTION_NODES \
-	Return
+	Block,                                \
+	 If,                                  \
+	 Return
 #define NEM_AST_LIST_OF_EXPRESSION_NODES \
 	Literal,                             \
 	 UnaryOperation,                     \
@@ -28,7 +31,6 @@ enum class BinaryOp;
 	File,                               \
 	 Identifier,                        \
 	 Function,                          \
-	 Block,                             \
 	 NEM_AST_LIST_OF_INSTRUCTION_NODES, \
 	 NEM_AST_LIST_OF_EXPRESSION_NODES,  \
 	 NEM_AST_LIST_OF_TYPE_NODES
@@ -42,6 +44,8 @@ using Type		  = std::variant<NEM_AST_LIST_OF_TYPE_NODES>;
 
 using FunctionList = std::vector<Function>;
 
+using InstructionPtr = std::shared_ptr<Instruction>;
+using InstructionOpt = std::optional<InstructionPtr>;
 using InstructionSeq = std::vector<Instruction>;
 
 using ExpressionPtr = std::shared_ptr<Expression>;

@@ -39,6 +39,9 @@ FN : 'fn' ;
 
 RETURN : 'return' ;
 
+IF   : 'if' ;
+ELSE : 'else' ;
+
 OR  : 'or' ;
 AND : 'and' ;
 

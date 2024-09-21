@@ -7,6 +7,13 @@
 namespace nem::ast
 {
 
+struct If : Node
+{
+	Expression	   cond;
+	InstructionPtr then;
+	InstructionOpt else_;
+};
+
 struct Return : Node
 {
 	Expression value;

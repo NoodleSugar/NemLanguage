@@ -20,6 +20,7 @@ public:
 	std::any visitCall(NEMParser::CallContext*) override;
 
 	std::any visitInstrTerminated(NEMParser::InstrTerminatedContext*) override;
+	std::any visitInstrIf(NEMParser::InstrIfContext*) override;
 	std::any visitInstrReturnValue(NEMParser::InstrReturnValueContext*) override;
 
 	std::any visitLiteralBool(NEMParser::LiteralBoolContext*) override;

@@ -27,6 +27,48 @@ llvm::Instruction* IRBuilder::build(const Instruction& instr)
 }
 // clang-format on
 
+llvm::Instruction* IRBuilder::build(const Block& block)
+{
+	llvm::Instruction* last;
+
+	for(const auto& inst: block.instructions)
+		last = build(inst);
+
+	return last;
+}
+
+llvm::BranchInst* IRBuilder::build(const If& i)
+{
+	const auto cond		= build(i.cond);
+	const auto function = builder.GetInsertBlock()->getParent();
+
+	auto thenBB = llvm::BasicBlock::Create(llvmContext, "ifThen");
+	auto elseBB = llvm::BasicBlock::Create(llvmContext, "ifElse");
+	auto endBB	= llvm::BasicBlock::Create(llvmContext, "ifEnd");
+
+	auto ret = builder.CreateCondBr(cond, thenBB, elseBB);
+
+	{
+		function->insert(function->end(), thenBB);
+		builder.SetInsertPoint(thenBB);
+		build(*i.then);
+		builder.CreateBr(endBB);
+	}
+
+	{
+		function->insert(function->end(), elseBB);
+		builder.SetInsertPoint(elseBB);
+		if(i.else_)
+			build(**i.else_);
+		builder.CreateBr(endBB);
+	}
+
+	function->insert(function->end(), endBB);
+	builder.SetInsertPoint(endBB);
+
+	return ret;
+}
+
 llvm::ReturnInst* IRBuilder::build(const Return& ret)
 {
 	return builder.CreateRet(build(ret.value));

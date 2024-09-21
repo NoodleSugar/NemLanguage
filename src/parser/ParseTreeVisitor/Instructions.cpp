@@ -10,6 +10,17 @@ std::any ParseTreeVisitor::visitInstrTerminated(NEMParser::InstrTerminatedContex
 	return ctx->terminatedInstr()->accept(this);
 }
 
+std::any ParseTreeVisitor::visitInstrIf(NEMParser::InstrIfContext* ctx)
+{
+	auto cond  = visitExpression(ctx->cond);
+	auto then  = std::make_shared<Instruction>(visitInstruction(ctx->then));
+	auto else_ = ctx->else_ ?
+				  (InstructionOpt)std::make_shared<Instruction>(visitInstruction(ctx->else_)) :
+				  (InstructionOpt)std::nullopt;
+
+	return buildAstElement<If>(ctx, cond, then, else_);
+}
+
 std::any ParseTreeVisitor::visitInstrReturnValue(NEMParser::InstrReturnValueContext* ctx)
 {
 	const auto value = visitExpression(ctx->expr());

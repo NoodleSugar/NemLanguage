@@ -33,6 +33,8 @@ public:
 	llvm::Value*	build(const ast::BinaryOperation&);
 
 	llvm::Instruction* build(const ast::Instruction&);
+	llvm::Instruction* build(const ast::Block&);
+	llvm::BranchInst*  build(const ast::If&);
 	llvm::ReturnInst*  build(const ast::Return&);
 
 	llvm::Type* build(const ast::Type&);
