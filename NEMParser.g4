@@ -52,12 +52,18 @@ expr
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParan
 
 	| MINUS expr                      #ExprUnMinus
-	| left = expr AND    right = expr #ExprBinAnd
-	| left = expr OR     right = expr #ExprBinOr
-	| left = expr SLASH  right = expr #ExprBinSlash
-	| left = expr STAR   right = expr #ExprBinStar
-	| left = expr MINUS  right = expr #ExprBinMinus
-	| left = expr PLUS   right = expr #ExprBinPlus
+	| left = expr AND      right = expr #ExprBinAnd
+	| left = expr OR       right = expr #ExprBinOr
+	| left = expr C_EQ     right = expr #ExprBinEQ
+	| left = expr C_NE     right = expr #ExprBinNE
+	| left = expr C_LE     right = expr #ExprBinLE
+	| left = expr C_GE     right = expr #ExprBinGE
+	| left = expr LCHEVRON right = expr #ExprBinLT
+	| left = expr RCHEVRON right = expr #ExprBinGT
+	| left = expr SLASH    right = expr #ExprBinSlash
+	| left = expr STAR     right = expr #ExprBinStar
+	| left = expr MINUS    right = expr #ExprBinMinus
+	| left = expr PLUS     right = expr #ExprBinPlus
 	;
 
 literal

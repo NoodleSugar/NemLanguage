@@ -51,7 +51,19 @@ TEST_CASE_METHOD(IRBuilderFixture, "BinaryOperation")
 	 Data{"true and false", "i1 false"},
 	 Data{"true or false", "i1 true"},
 	 Data{"1 + 2", "i64 3"},
-	 Data{"1.0 + 2.0", "double 3.000000e+00"});
+	 Data{"1.0 + 2.0", "double 3.000000e+00"},
+	 Data{"1 == 2", "i1 false"},
+	 Data{"1 != 2", "i1 true"},
+	 Data{"1 <= 2", "i1 true"},
+	 Data{"1 >= 2", "i1 false"},
+	 Data{"1 < 2", "i1 true"},
+	 Data{"1 > 2", "i1 false"},
+	 Data{"1.0 == 2.0", "i1 false"},
+	 Data{"1.0 != 2.0", "i1 true"},
+	 Data{"1.0 <= 2.0", "i1 true"},
+	 Data{"1.0 >= 2.0", "i1 false"},
+	 Data{"1.0 < 2.0", "i1 true"},
+	 Data{"1.0 > 2.0", "i1 false"});
 
 	CHECK(data.expectedIr == getIRString<BinaryOperation>(data.code, ParserRule::expr));
 }

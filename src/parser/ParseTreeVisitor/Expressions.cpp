@@ -54,6 +54,36 @@ std::any ParseTreeVisitor::visitExprBinOr(NEMParser::ExprBinOrContext* ctx)
 	return AstElement{computeBinaryOperation(ctx, BinaryOp::Or, ctx->left, ctx->right)};
 }
 
+std::any ParseTreeVisitor::visitExprBinEQ(NEMParser::ExprBinEQContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::EQ, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinNE(NEMParser::ExprBinNEContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::NE, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinLE(NEMParser::ExprBinLEContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::LE, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinGE(NEMParser::ExprBinGEContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::GE, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinLT(NEMParser::ExprBinLTContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::LT, ctx->left, ctx->right)};
+}
+
+std::any ParseTreeVisitor::visitExprBinGT(NEMParser::ExprBinGTContext* ctx)
+{
+	return AstElement{computeBinaryOperation(ctx, BinaryOp::GT, ctx->left, ctx->right)};
+}
+
 std::any ParseTreeVisitor::visitExprBinSlash(NEMParser::ExprBinSlashContext* ctx)
 {
 	return AstElement{computeBinaryOperation(ctx, BinaryOp::Slash, ctx->left, ctx->right)};

@@ -34,6 +34,12 @@ public:
 	std::any visitExprUnMinus(NEMParser::ExprUnMinusContext*) override;
 	std::any visitExprBinAnd(NEMParser::ExprBinAndContext*) override;
 	std::any visitExprBinOr(NEMParser::ExprBinOrContext*) override;
+	std::any visitExprBinEQ(NEMParser::ExprBinEQContext*) override;
+	std::any visitExprBinNE(NEMParser::ExprBinNEContext*) override;
+	std::any visitExprBinLE(NEMParser::ExprBinLEContext*) override;
+	std::any visitExprBinGE(NEMParser::ExprBinGEContext*) override;
+	std::any visitExprBinLT(NEMParser::ExprBinLTContext*) override;
+	std::any visitExprBinGT(NEMParser::ExprBinGTContext*) override;
 	std::any visitExprBinSlash(NEMParser::ExprBinSlashContext*) override;
 	std::any visitExprBinStar(NEMParser::ExprBinStarContext*) override;
 	std::any visitExprBinMinus(NEMParser::ExprBinMinusContext*) override;

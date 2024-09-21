@@ -133,6 +133,18 @@ llvm::Value* IRBuilder::build(const BinaryOperation& op)
 			return builder.CreateMul(left, right, "multmp");
 		case BinaryOp::Slash:
 			return builder.CreateSDiv(left, right, "sdivtmp");
+		case BinaryOp::EQ:
+			return builder.CreateICmpEQ(left, right, "icmpEQtmp");
+		case BinaryOp::NE:
+			return builder.CreateICmpNE(left, right, "icmpNEtmp");
+		case BinaryOp::LE:
+			return builder.CreateICmpSLE(left, right, "icmpSLEtmp");
+		case BinaryOp::GE:
+			return builder.CreateICmpSGE(left, right, "icmpSGEtmp");
+		case BinaryOp::LT:
+			return builder.CreateICmpSLT(left, right, "icmpSLTtmp");
+		case BinaryOp::GT:
+			return builder.CreateICmpSGT(left, right, "icmpSGTtmp");
 		default:
 			llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
 							"Int operands only support numeric operators\n";
@@ -151,6 +163,18 @@ llvm::Value* IRBuilder::build(const BinaryOperation& op)
 			return builder.CreateFMul(left, right, "fmultmp");
 		case BinaryOp::Slash:
 			return builder.CreateFDiv(left, right, "fdivtmp");
+		case BinaryOp::EQ:
+			return builder.CreateFCmpOEQ(left, right, "fcmpOEQtmp");
+		case BinaryOp::NE:
+			return builder.CreateFCmpONE(left, right, "fcmpONEtmp");
+		case BinaryOp::LE:
+			return builder.CreateFCmpOLE(left, right, "fcmpOLEtmp");
+		case BinaryOp::GE:
+			return builder.CreateFCmpOGE(left, right, "fcmpOGEtmp");
+		case BinaryOp::LT:
+			return builder.CreateFCmpOLT(left, right, "fcmpOLTtmp");
+		case BinaryOp::GT:
+			return builder.CreateFCmpOGT(left, right, "fcmpOGTtmp");
 		default:
 			llvm::errs() << "IRBuilder::build(const BinaryOperation&) : "
 							"Real operands only support numeric operators\n";

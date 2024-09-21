@@ -16,6 +16,14 @@ WHITESPACE : [\t\r\n ]+ -> skip ;
 // Simple characters //
 ///////////////////////
 
+C_EQ : '==' ;
+C_NE : '!=' ;
+C_LE : '<=' ;
+C_GE : '>=' ;
+
+LCHEVRON : '<' ;
+RCHEVRON : '>' ;
+
 EQ : '=' ;
 
 PLUS  : '+' ;

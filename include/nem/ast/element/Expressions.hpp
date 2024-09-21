@@ -35,6 +35,12 @@ enum class BinaryOp
 {
 	Or,
 	And,
+	EQ,
+	NE,
+	LE,
+	GE,
+	LT,
+	GT,
 	Plus,
 	Minus,
 	Star,
