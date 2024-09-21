@@ -16,9 +16,15 @@ topLevel : fnDef ;
 // Functions //
 ///////////////
 
-fnDef : FN IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS type block ;
+fnDef : FN IDENTIFIER OPEN_PARENTHESIS paramSeq? CLOSE_PARENTHESIS type block ;
 
-call : IDENTIFIER OPEN_PARENTHESIS CLOSE_PARENTHESIS ;
+paramSeq : param (COMMA param)* ;
+
+param : IDENTIFIER COLON type ;
+
+call : IDENTIFIER OPEN_PARENTHESIS argSeq? CLOSE_PARENTHESIS ;
+
+argSeq : expr (COMMA expr)* ;
 
 //////////////////
 // Instructions //
@@ -39,8 +45,9 @@ terminatedInstr
 /////////////////
 
 expr
-	: literal #ExprLiteral
-	| call    #ExprCall
+	: literal    #ExprLiteral
+	| IDENTIFIER #ExprIdentifier
+	| call       #ExprCall
 
 	| OPEN_PARENTHESIS expr CLOSE_PARENTHESIS #ExprParan
 

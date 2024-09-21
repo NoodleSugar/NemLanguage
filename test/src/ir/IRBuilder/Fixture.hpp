@@ -74,6 +74,7 @@ protected:
 		 Function{{emptyInfo},
 				  Identifier{{emptyInfo}, "main"},
 				  NativeType{{emptyInfo}, NativeTypeE::Int},
+				  ParameterSeq{},
 				  Block{{emptyInfo},
 						{Return{{emptyInfo}, zeroInt}}}});
 	}

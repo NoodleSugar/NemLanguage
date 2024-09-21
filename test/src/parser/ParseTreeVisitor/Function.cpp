@@ -6,16 +6,35 @@ TEST_CASE("Function")
 	{
 		std::string code;
 		std::string name;
+		size_t		paramsCount;
 	};
 
 	auto data = GENERATE(
-	 Data{"fn func() int { }", "func"});
+	 Data{"fn func() int { }", "func", 0},
+	 Data{"fn func(a : int, b : bool) int { }", "func", 2});
 
 	auto ast = Parser(data.code).parse(ParserRule::fnDef);
 	REQUIRE(std::holds_alternative<Function>(ast));
 
 	auto& fun = std::get<Function>(ast);
 	CHECK(data.name == fun.name.string);
+	CHECK(data.paramsCount == fun.params.size());
+}
+
+TEST_CASE("Parameter")
+{
+	struct Data
+	{
+		std::string code;
+	};
+
+	auto data = GENERATE(
+	 Data{"varB : bool"},
+	 Data{"varI : int"},
+	 Data{"varR : real"});
+
+	auto ast = Parser(data.code).parse(ParserRule::param);
+	REQUIRE(std::holds_alternative<Parameter>(ast));
 }
 
 TEST_CASE("Block")
@@ -47,14 +66,17 @@ TEST_CASE("Call")
 	{
 		std::string code;
 		std::string name;
+		size_t		argsCount;
 	};
 
 	auto data = GENERATE(
-	 Data{"f()", "f"});
+	 Data{"f()", "f", 0},
+	 Data{"g(1, a)", "g", 2});
 
 	auto ast = Parser(data.code).parse(ParserRule::call);
 	REQUIRE(std::holds_alternative<Call>(ast));
 
 	auto& call = std::get<Call>(ast);
 	CHECK(data.name == call.name.string);
+	CHECK(data.argsCount == call.args.size());
 }

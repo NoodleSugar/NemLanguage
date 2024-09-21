@@ -3,11 +3,11 @@ source_filename = "default"
 
 define i64 @main() {
 entry:
-  %calltmp = call i64 @f()
+  %calltmp = call i64 @f(i64 0)
   ret i64 %calltmp
 }
 
-define i64 @f() {
+define i64 @f(i64 %a) {
 entry:
-  ret i64 0
+  ret i64 %a
 }

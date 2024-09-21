@@ -23,10 +23,21 @@ llvm::Function* IRBuilder::createFunctionPrototype(const Function& function)
 	auto llvmReturnType = build(function.returnType);
 	auto llvmParamTypes = std::vector<llvm::Type*>();
 
+	for(const auto& param: function.params)
+		llvmParamTypes.push_back(build(param.type));
+
 	auto llvmFunctionType = llvm::FunctionType::get(llvmReturnType, llvmParamTypes, false);
 
 	llvmFunction = llvm::Function::Create(
 	 llvmFunctionType, llvm::Function::ExternalLinkage, function.name.string, llvmModule);
+
+	for(auto pair: llvm::zip(llvmFunction->args(), function.params))
+	{
+		auto& llvmArg = std::get<0>(pair);
+		auto& param	  = std::get<1>(pair);
+
+		llvmArg.setName(param.name.string);
+	}
 
 	return llvmFunction;
 }
@@ -49,8 +60,13 @@ llvm::Function* IRBuilder::build(const Function& function)
 	auto entryBlock = llvm::BasicBlock::Create(llvmContext, "entry", llvmFunction);
 	builder.SetInsertPoint(entryBlock);
 
+	namedValues.pushLayer();
+	for(auto& llvmArg: llvmFunction->args())
+		namedValues.add(llvmArg.getName(), &llvmArg);
+
 	for(const auto& inst: function.body.instructions)
 		build(inst);
+	namedValues.popLayer();
 
 	llvm::verifyFunction(*llvmFunction, &llvm::errs());
 
@@ -71,6 +87,9 @@ llvm::CallInst* IRBuilder::build(const ast::Call& call)
 	}
 
 	auto args = std::vector<llvm::Value*>();
+	args.reserve(call.args.size());
+	for(const auto& arg: call.args)
+		args.push_back(build(arg));
 
 	return builder.CreateCall(function, args, "calltmp");
 }

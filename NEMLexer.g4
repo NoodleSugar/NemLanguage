@@ -29,6 +29,8 @@ OPEN_BRACE        : '{' ;
 CLOSE_BRACE       : '}' ;
 
 POINT     : '.' ;
+COMMA     : ',' ;
+COLON     : ':' ;
 SEMICOLON : ';' ;
 
 //////////////

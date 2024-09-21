@@ -49,6 +49,7 @@ target_sources(${NEM_IR}
 		src/ir/IRBuilder/Expressions.cpp
 		src/ir/IRBuilder/Types.cpp
 		src/ir/util/LiteralParser.cpp
+		src/ir/util/NamedValueRegister.cpp
 )
 
 # Tests

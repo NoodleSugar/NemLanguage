@@ -60,6 +60,11 @@ llvm::Constant* IRBuilder::build(const Literal& lit)
 	}
 }
 
+llvm::Value* IRBuilder::build(const ast::Identifier& id)
+{
+	return namedValues.get(id.string);
+}
+
 llvm::Value* IRBuilder::build(const UnaryOperation& op)
 {
 	const auto value = build(*op.expr);

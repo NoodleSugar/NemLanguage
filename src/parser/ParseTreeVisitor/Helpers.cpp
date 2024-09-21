@@ -42,17 +42,17 @@ constexpr auto typeVisitor = VisitorOverload
 
 Expression ParseTreeVisitor::visitExpression(antlr4::ParserRuleContext* ctx)
 {
-	return std::visit(expressionVisitor, visitTreeValue(ctx));
+	return std::visit(expressionVisitor, visitAstElement(ctx));
 }
 
 Instruction ParseTreeVisitor::visitInstruction(antlr4::ParserRuleContext* ctx)
 {
-	return std::visit(instructionVisitor, visitTreeValue(ctx));
+	return std::visit(instructionVisitor, visitAstElement(ctx));
 }
 
 Type ParseTreeVisitor::visitType(antlr4::ParserRuleContext* ctx)
 {
-	return std::visit(typeVisitor, visitTreeValue(ctx));
+	return std::visit(typeVisitor, visitAstElement(ctx));
 }
 
 SourceInfo ParseTreeVisitor::computeSourceInfo(const antlr4::ParserRuleContext* ctx)
@@ -96,6 +96,42 @@ BinaryOperation ParseTreeVisitor::computeBinaryOperation(
 	auto r = std::make_shared<Expression>(visitExpression(right));
 
 	return BinaryOperation{{info}, op, std::move(l), std::move(r)};
+}
+
+ParameterSeq ParseTreeVisitor::computeParamSeq(NEMParser::ParamSeqContext* ctx)
+{
+	if(!ctx)
+		return ParameterSeq{};
+
+	const auto paramCtx = ctx->param();
+
+	ParameterSeq params;
+	params.reserve(paramCtx.size());
+
+	std::transform(paramCtx.cbegin(), paramCtx.cend(),
+				   std::back_inserter(params),
+				   [this](const auto elt)
+				   { return visitAstElement<Parameter>(elt); });
+
+	return params;
+}
+
+ExpressionSeq ParseTreeVisitor::computeArgSeq(NEMParser::ArgSeqContext* ctx)
+{
+	if(!ctx)
+		return ExpressionSeq{};
+
+	const auto argCtx = ctx->expr();
+
+	ExpressionSeq args;
+	args.reserve(argCtx.size());
+
+	std::transform(argCtx.cbegin(), argCtx.cend(),
+				   std::back_inserter(args),
+				   [this](const auto elt)
+				   { return visitExpression(elt); });
+
+	return args;
 }
 
 } // namespace nem::parser

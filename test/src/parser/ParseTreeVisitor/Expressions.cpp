@@ -30,6 +30,24 @@ TEST_CASE("Literal")
 	CHECK(data.type == lit.type);
 }
 
+TEST_CASE("Identifier")
+{
+	struct Data
+	{
+		std::string name;
+	};
+
+	auto data = GENERATE(
+	 Data{"pouet"},
+	 Data{"Pouet0_1"});
+
+	auto ast = Parser(data.name).parse(ParserRule::expr);
+	REQUIRE(std::holds_alternative<Identifier>(ast));
+
+	auto& id = std::get<Identifier>(ast);
+	CHECK(data.name == id.string);
+}
+
 TEST_CASE("UnaryOperation")
 {
 	struct Data

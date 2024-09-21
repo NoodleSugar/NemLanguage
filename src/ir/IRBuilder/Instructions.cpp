@@ -29,10 +29,12 @@ llvm::Instruction* IRBuilder::build(const Instruction& instr)
 
 llvm::Instruction* IRBuilder::build(const Block& block)
 {
-	llvm::Instruction* last;
+	llvm::Instruction* last = nullptr;
 
+	namedValues.pushLayer();
 	for(const auto& inst: block.instructions)
 		last = build(inst);
+	namedValues.popLayer();
 
 	return last;
 }

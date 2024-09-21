@@ -27,6 +27,11 @@ std::any ParseTreeVisitor::visitLiteralReal(NEMParser::LiteralRealContext* ctx)
 	return buildAstElement<Literal>(ctx, LiteralType::Real, value);
 }
 
+std::any ParseTreeVisitor::visitExprIdentifier(NEMParser::ExprIdentifierContext* ctx)
+{
+	return AstElement{computeIdentifier(ctx->IDENTIFIER())};
+}
+
 std::any ParseTreeVisitor::visitExprParan(NEMParser::ExprParanContext* ctx)
 {
 	return ctx->expr()->accept(this);

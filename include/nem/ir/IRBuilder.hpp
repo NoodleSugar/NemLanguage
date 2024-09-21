@@ -1,8 +1,12 @@
 #pragma once
 
+#include <map>
+#include <string>
+
 #include <llvm/IR/IRBuilder.h>
 
 #include "nem/ast/Forward.hpp"
+#include "util/NamedValueRegister.hpp"
 
 namespace nem::ir
 {
@@ -12,6 +16,8 @@ class IRBuilder
 	llvm::LLVMContext& llvmContext;
 	llvm::Module&	   llvmModule;
 	llvm::IRBuilder<>  builder;
+
+	NamedValueRegister namedValues;
 
 	llvm::Function* createFunctionPrototype(const ast::Function& function);
 
@@ -29,6 +35,7 @@ public:
 
 	llvm::Value*	build(const ast::Expression&);
 	llvm::Constant* build(const ast::Literal&);
+	llvm::Value*	build(const ast::Identifier&);
 	llvm::Value*	build(const ast::UnaryOperation&);
 	llvm::Value*	build(const ast::BinaryOperation&);
 

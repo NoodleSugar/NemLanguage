@@ -10,6 +10,7 @@
 	file,                       \
 	 topLevel,                  \
 	 fnDef,                     \
+	 param,                     \
 	 block,                     \
 	 call,                      \
 	 instr,                     \

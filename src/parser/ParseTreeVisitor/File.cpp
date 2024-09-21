@@ -17,7 +17,7 @@ std::any ParseTreeVisitor::visitFile(NEMParser::FileContext* ctx)
 	std::transform(topLevelCtx.cbegin(), topLevelCtx.cend(),
 				   std::back_inserter(functions),
 				   [&](const auto elt)
-				   { return visitTreeValue<Function>(elt); });
+				   { return visitAstElement<Function>(elt); });
 
 	return buildAstElement<File>(ctx, functions);
 }

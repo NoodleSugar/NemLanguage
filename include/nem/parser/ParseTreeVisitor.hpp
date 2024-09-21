@@ -16,6 +16,7 @@ class ParseTreeVisitor : public NEMParserBaseVisitor
 public:
 	std::any visitFile(NEMParser::FileContext*) override;
 	std::any visitFnDef(NEMParser::FnDefContext*) override;
+	std::any visitParam(NEMParser::ParamContext*) override;
 	std::any visitBlock(NEMParser::BlockContext*) override;
 	std::any visitCall(NEMParser::CallContext*) override;
 
@@ -27,6 +28,7 @@ public:
 	std::any visitLiteralInt(NEMParser::LiteralIntContext*) override;
 	std::any visitLiteralReal(NEMParser::LiteralRealContext*) override;
 
+	std::any visitExprIdentifier(NEMParser::ExprIdentifierContext*) override;
 	std::any visitExprParan(NEMParser::ExprParanContext*) override;
 
 	std::any visitExprUnMinus(NEMParser::ExprUnMinusContext*) override;
@@ -43,13 +45,13 @@ public:
 
 private:
 	template<class T = AstElement>
-	T visitTreeValue(antlr4::ParserRuleContext* ctx)
+	T visitAstElement(antlr4::ParserRuleContext* ctx)
 	{
-		return std::get<T>(visitTreeValue(ctx));
+		return std::get<T>(visitAstElement(ctx));
 	}
 
 	template<>
-	AstElement visitTreeValue<AstElement>(antlr4::ParserRuleContext* ctx)
+	AstElement visitAstElement<AstElement>(antlr4::ParserRuleContext* ctx)
 	{
 		auto result = ctx->accept(this);
 		return std::any_cast<AstElement>(result);
@@ -66,6 +68,8 @@ private:
 												ast::BinaryOp,
 												NEMParser::ExprContext* left,
 												NEMParser::ExprContext* right);
+	ast::ParameterSeq	 computeParamSeq(NEMParser::ParamSeqContext*);
+	ast::ExpressionSeq	 computeArgSeq(NEMParser::ArgSeqContext*);
 
 	template<class T, class... Args>
 	inline auto buildAstElement(const antlr4::ParserRuleContext* ctx, Args&&... args)

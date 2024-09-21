@@ -9,11 +9,18 @@
 namespace nem::ast
 {
 
-struct Function : Node
+struct Parameter : Node
 {
 	Identifier name;
-	Type	   returnType;
-	Block	   body;
+	Type	   type;
+};
+
+struct Function : Node
+{
+	Identifier	 name;
+	Type		 returnType;
+	ParameterSeq params;
+	Block		 body;
 };
 
 } // namespace nem::ast

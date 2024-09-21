@@ -9,14 +9,26 @@ using namespace nem::ast;
 
 std::any ParseTreeVisitor::visitFnDef(NEMParser::FnDefContext* ctx)
 {
-	const auto returnTypeCtx = ctx->type();
-	const auto blockCtx		 = ctx->block();
-
 	const auto name		  = computeIdentifier(ctx->IDENTIFIER());
-	const auto returnType = visitType(returnTypeCtx);
-	const auto body		  = visitTreeValue<Block>(blockCtx);
+	const auto returnType = visitType(ctx->type());
+	const auto params	  = computeParamSeq(ctx->paramSeq());
+	const auto body		  = visitAstElement<Block>(ctx->block());
 
-	return buildAstElement<Function>(ctx, name, returnType, body);
+	return buildAstElement<Function>(ctx,
+									 std::move(name),
+									 std::move(returnType),
+									 std::move(params),
+									 std::move(body));
+}
+
+std::any ParseTreeVisitor::visitParam(NEMParser::ParamContext* ctx)
+{
+	const auto name = computeIdentifier(ctx->IDENTIFIER());
+	const auto type = visitType(ctx->type());
+
+	return buildAstElement<Parameter>(ctx,
+									  std::move(name),
+									  std::move(type));
 }
 
 std::any ParseTreeVisitor::visitBlock(NEMParser::BlockContext* ctx)
@@ -37,8 +49,11 @@ std::any ParseTreeVisitor::visitBlock(NEMParser::BlockContext* ctx)
 std::any ParseTreeVisitor::visitCall(NEMParser::CallContext* ctx)
 {
 	const auto name = computeIdentifier(ctx->IDENTIFIER());
+	const auto args = computeArgSeq(ctx->argSeq());
 
-	return buildAstElement<Call>(ctx, name);
+	return buildAstElement<Call>(ctx,
+								 std::move(name),
+								 std::move(args));
 }
 
 } // namespace nem::parser
