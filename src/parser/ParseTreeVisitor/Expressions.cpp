@@ -34,10 +34,9 @@ std::any ParseTreeVisitor::visitExprParan(NEMParser::ExprParanContext* ctx)
 
 std::any ParseTreeVisitor::visitExprUnMinus(NEMParser::ExprUnMinusContext* ctx)
 {
-	const auto expr = MakePtr<Expression>();
-	*expr			= visitExpression(ctx->expr());
+	auto expr = std::make_shared<Expression>(visitExpression(ctx->expr()));
 
-	return buildAstElement<UnaryOperation>(ctx, UnaryOp::Minus, expr);
+	return buildAstElement<UnaryOperation>(ctx, UnaryOp::Minus, std::move(expr));
 }
 
 std::any ParseTreeVisitor::visitExprBinAnd(NEMParser::ExprBinAndContext* ctx)

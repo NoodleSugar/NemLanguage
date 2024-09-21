@@ -46,7 +46,4 @@ using InstructionSeq = std::vector<Instruction>;
 
 using ExpressionPtr = std::shared_ptr<Expression>;
 
-template<class T>
-const auto MakePtr = std::make_shared<T>;
-
 } // namespace nem::ast

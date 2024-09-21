@@ -92,10 +92,8 @@ BinaryOperation ParseTreeVisitor::computeBinaryOperation(
 {
 	const auto info = computeSourceInfo(ctx);
 
-	auto l = MakePtr<Expression>();
-	auto r = MakePtr<Expression>();
-	*l	   = visitExpression(left);
-	*r	   = visitExpression(right);
+	auto l = std::make_shared<Expression>(visitExpression(left));
+	auto r = std::make_shared<Expression>(visitExpression(right));
 
 	return BinaryOperation{{info}, op, std::move(l), std::move(r)};
 }
