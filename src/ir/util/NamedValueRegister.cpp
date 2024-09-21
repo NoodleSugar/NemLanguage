@@ -23,7 +23,7 @@ bool NamedValueRegister::contains(const llvm::StringRef& name) const
 	return false;
 }
 
-llvm::Value* NamedValueRegister::get(const llvm::StringRef& name)
+llvm::AllocaInst* NamedValueRegister::get(const llvm::StringRef& name)
 {
 	for(auto& layer: layers)
 	{
@@ -33,12 +33,12 @@ llvm::Value* NamedValueRegister::get(const llvm::StringRef& name)
 	return nullptr;
 }
 
-void NamedValueRegister::add(const llvm::StringRef& name, llvm::Value* value)
+void NamedValueRegister::add(const llvm::StringRef& name, llvm::AllocaInst* value)
 {
 	layers.back()[name] = value;
 }
 
-void NamedValueRegister::set(const llvm::StringRef& name, llvm::Value* value)
+void NamedValueRegister::set(const llvm::StringRef& name, llvm::AllocaInst* value)
 {
 	for(auto& layer: layers)
 	{

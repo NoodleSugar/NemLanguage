@@ -62,7 +62,13 @@ llvm::Function* IRBuilder::build(const Function& function)
 
 	namedValues.pushLayer();
 	for(auto& llvmArg: llvmFunction->args())
-		namedValues.add(llvmArg.getName(), &llvmArg);
+	{
+		auto alloc = builder.CreateAlloca(llvmArg.getType(), nullptr, llvmArg.getName());
+
+		builder.CreateStore(&llvmArg, alloc);
+
+		namedValues.add(llvmArg.getName(), alloc);
+	}
 
 	for(const auto& inst: function.body.instructions)
 		build(inst);

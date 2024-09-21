@@ -39,10 +39,11 @@ public:
 	llvm::Value*	build(const ast::UnaryOperation&);
 	llvm::Value*	build(const ast::BinaryOperation&);
 
-	llvm::Instruction* build(const ast::Instruction&);
-	llvm::Instruction* build(const ast::Block&);
-	llvm::BranchInst*  build(const ast::If&);
-	llvm::ReturnInst*  build(const ast::Return&);
+	void build(const ast::Instruction&);
+	void build(const ast::Block&);
+	void build(const ast::VarDef&);
+	void build(const ast::If&);
+	void build(const ast::Return&);
 
 	llvm::Type* build(const ast::Type&);
 	llvm::Type* build(const ast::NativeType&);

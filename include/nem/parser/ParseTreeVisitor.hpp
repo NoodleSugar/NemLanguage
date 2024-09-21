@@ -21,6 +21,7 @@ public:
 	std::any visitCall(NEMParser::CallContext*) override;
 
 	std::any visitInstrTerminated(NEMParser::InstrTerminatedContext*) override;
+	std::any visitInstrVarDef(NEMParser::InstrVarDefContext*) override;
 	std::any visitInstrIf(NEMParser::InstrIfContext*) override;
 	std::any visitInstrReturnValue(NEMParser::InstrReturnValueContext*) override;
 

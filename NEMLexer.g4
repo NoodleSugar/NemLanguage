@@ -45,7 +45,8 @@ SEMICOLON : ';' ;
 // Keywords //
 //////////////
 
-FN : 'fn' ;
+FN  : 'fn' ;
+VAR : 'var' ;
 
 RETURN : 'return' ;
 

@@ -10,6 +10,18 @@ std::any ParseTreeVisitor::visitInstrTerminated(NEMParser::InstrTerminatedContex
 	return ctx->terminatedInstr()->accept(this);
 }
 
+std::any ParseTreeVisitor::visitInstrVarDef(NEMParser::InstrVarDefContext* ctx)
+{
+	auto name  = computeIdentifier(ctx->IDENTIFIER());
+	auto type  = visitType(ctx->type());
+	auto value = visitExpression(ctx->expr());
+
+	return buildAstElement<VarDef>(ctx,
+								   std::move(name),
+								   std::move(type),
+								   std::move(value));
+}
+
 std::any ParseTreeVisitor::visitInstrIf(NEMParser::InstrIfContext* ctx)
 {
 	auto cond  = visitExpression(ctx->cond);

@@ -60,22 +60,3 @@ protected:
 						   (std::istreambuf_iterator<char>()));
 	}
 };
-
-class IRBuilderInstructionFixture : public IRBuilderFixture
-{
-protected:
-	IRBuilderInstructionFixture() :
-		IRBuilderFixture()
-	{
-		const SourceInfo emptyInfo{};
-		const Literal	 zeroInt{{emptyInfo}, LiteralType::Int, "0"};
-
-		builder.build(
-		 Function{{emptyInfo},
-				  Identifier{{emptyInfo}, "main"},
-				  NativeType{{emptyInfo}, NativeTypeE::Int},
-				  ParameterSeq{},
-				  Block{{emptyInfo},
-						{Return{{emptyInfo}, zeroInt}}}});
-	}
-};

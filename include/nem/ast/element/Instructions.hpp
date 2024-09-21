@@ -3,9 +3,18 @@
 #include "../Forward.hpp"
 #include "../Node.hpp"
 #include "Expressions.hpp"
+#include "Identifier.hpp"
+#include "Types.hpp"
 
 namespace nem::ast
 {
+
+struct VarDef : Node
+{
+	Identifier name;
+	Type	   type;
+	Expression value;
+};
 
 struct If : Node
 {

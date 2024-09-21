@@ -1,5 +1,20 @@
 #include "Includes.hpp"
 
+TEST_CASE("VarDef")
+{
+	struct Data
+	{
+		std::string code;
+	};
+
+	auto data = GENERATE(
+	 Data{"var b : bool = true;"},
+	 Data{"var integer : int = 1;"});
+
+	auto ast = Parser(data.code).parse(ParserRule::instr);
+	REQUIRE(std::holds_alternative<VarDef>(ast));
+}
+
 TEST_CASE("If")
 {
 	struct Data

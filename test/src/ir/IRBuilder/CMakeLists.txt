@@ -3,7 +3,6 @@ add_executable(IRBuilderTest)
 target_sources(IRBuilderTest
 	PRIVATE
 		Function.cpp
-		Instructions.cpp
 		Expressions.cpp
 		Types.cpp
 )

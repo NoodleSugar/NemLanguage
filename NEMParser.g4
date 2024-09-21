@@ -32,10 +32,14 @@ argSeq : expr (COMMA expr)* ;
 
 block : OPEN_BRACE instr* CLOSE_BRACE ;
 
-instr : terminatedInstr SEMICOLON #InstrTerminated ;
+instr
+	: terminatedInstr SEMICOLON #InstrTerminated
+
+	| IF OPEN_PARENTHESIS cond = expr CLOSE_PARENTHESIS then = block (ELSE else = block)? #InstrIf
+	;
 
 terminatedInstr
-	: IF OPEN_PARENTHESIS cond = expr CLOSE_PARENTHESIS then = block (ELSE else = block)? #InstrIf
+	: VAR IDENTIFIER COLON type EQ expr #InstrVarDef
 
 	| RETURN expr #InstrReturnValue
 	;

@@ -17,6 +17,7 @@ enum class BinaryOp;
 
 #define NEM_AST_LIST_OF_INSTRUCTION_NODES \
 	Block,                                \
+	 VarDef,                              \
 	 If,                                  \
 	 Return
 #define NEM_AST_LIST_OF_EXPRESSION_NODES \
@@ -34,6 +35,7 @@ enum class BinaryOp;
 	 Function,                \
 	 Parameter,               \
 	 Block,                   \
+	 VarDef,                  \
 	 If,                      \
 	 Return,                  \
 	 Literal,                 \

@@ -62,7 +62,9 @@ llvm::Constant* IRBuilder::build(const Literal& lit)
 
 llvm::Value* IRBuilder::build(const ast::Identifier& id)
 {
-	return namedValues.get(id.string);
+	auto alloc = namedValues.get(id.string);
+
+	return builder.CreateLoad(alloc->getAllocatedType(), alloc, id.string);
 }
 
 llvm::Value* IRBuilder::build(const UnaryOperation& op)
