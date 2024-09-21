@@ -76,6 +76,8 @@ llvm::Function* IRBuilder::build(const Function& function)
 
 	llvm::verifyFunction(*llvmFunction, &llvm::errs());
 
+	optimizer.run(*llvmFunction);
+
 	return llvmFunction;
 }
 

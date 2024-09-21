@@ -5,6 +5,7 @@
 
 #include <llvm/IR/IRBuilder.h>
 
+#include "IROptimizer.hpp"
 #include "nem/ast/Forward.hpp"
 #include "util/NamedValueRegister.hpp"
 
@@ -16,6 +17,8 @@ class IRBuilder
 	llvm::LLVMContext& llvmContext;
 	llvm::Module&	   llvmModule;
 	llvm::IRBuilder<>  builder;
+
+	IROptimizer optimizer;
 
 	NamedValueRegister namedValues;
 

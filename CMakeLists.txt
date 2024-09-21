@@ -42,6 +42,7 @@ target_sources(${NEM_IR}
 	PRIVATE
 		src/ir/Jit.cpp
 		src/ir/IRModule.cpp
+		src/ir/IROptimizer.cpp
 		src/ir/IRBuilder/IRBuilder.cpp
 		src/ir/IRBuilder/File.cpp
 		src/ir/IRBuilder/Function.cpp
